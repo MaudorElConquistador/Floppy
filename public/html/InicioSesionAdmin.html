@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Iniciar sesion</title>
+	<meta charset="utf-8">
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="./css/materialize.min.css"  media="screen,projection"/>
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+	<div class="valign-wrapper">
+	<div class="row">
+		<form class="col s12" method="POST" action="/admin/Iniciar">
+			<div class="input-field col s8">
+				<i class="material-icons prefix">account_circle</i>
+				<input type="email" id="email" name="cor">
+				<label class="activate" for="nombre">Ingresa tu nombre completo</label>
+			</div>
+			<div class="input-field col s8">
+				<i class="material-icons prefix">lock</i>
+				<input type="password" id="contraseña" name="con">
+				<label class="activate" for="contraseña">Ingresar tu contraseña</label>
+			</div>
+			<div class="input-field col s8">
+				<input type="submit" value="Registrar" class="btn waves-effect waves-light" >
+			</div>
+		</form>
+		<div id="error"></div>
+	</div>
+	</div>
+	<script src="./javascripts/materialize.js"></script>
+  	<script src="./javascripts/otro.js"></script>
+  	<script src="./javascripts/AJAX.js"></script>
+
+  	<!--<script src="./javascripts/init.js"></script>-->
+</body>
+</html>
