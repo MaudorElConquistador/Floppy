@@ -29,39 +29,39 @@
 	<main class="row">
 	<div class=" col s12">
 		<p class="flow-text">Aqui se va administrar a los vigilantes de un unidad</p>
-			<form class="col s12">
+			<form class="col s12" method="POST" action="/admin/RegistrarVig" >
 				<div class="input-field col s8">
 					<i class="material-icons prefix">account_circle</i>
-					<input type="text" id="nombre">
+					<input name="nom" type="text" id="nombre">
 					<label class="activate" for="nombre">Ingresa tu nombre completo</label>
 				</div>
 				<div class="input-field col s8">
 					<i class="material-icons prefix">lock</i>
-					<input type="password" id="contraseña">
+					<input name="contra" type="password" id="contraseña">
 					<label class="activate" for="contraseña">Ingresar tu contraseña</label>
 				</div>
 				<div class="input-field col s8">
 					<i class="material-icons prefix">contact_mail</i>
-					<input type="email" id="contacto">
+					<input name="email" type="email" id="contacto">
 					<label class="activate" for="contacto">Ingresar correo electronico</label>
 				</div>
 				<div class="input-field col s8">
 					<i class="material-icons prefix">contact_phone</i>
-					<input type="text" id="contactotelefono">
+					<input name="telefono" type="text" id="contactotelefono">
 					<label class="activate" for="contactotelefono">Ingresar contacto telefonico</label>
 				</div>
 				<div class="input-field col s8">
 					<i class="material-icons prefix">place</i>
-					<input type="text" id="direccion">
+					<input name="dir" type="text" id="direccion">
 					<label class="activate" for="direccion">Dirección del fraccionamiento</label>
 				</div>
 				<div class="input-field col s8">
 					<i class="material-icons prefix"></i>
-					<input type="number" id="capacidad">
+					<input name="capacidad" type="number" id="capacidad">
 					<label class="activate" for="capacidad">Capacidad del fraccionamiento</label>
 				</div>
 				<div class="input-field col s8">
-					<input type="button" value="Registrar" class="btn waves-effect waves-light" name="Registrar">
+					<input type="submit" value="Registrar" class="btn waves-effect waves-light" name="Registrar">
 				</div>
 			</form>
 		<blockquote class="col s12">Modificar datos del vigilante</blockquote>

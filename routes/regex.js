@@ -6,6 +6,10 @@ var regex = {
 		if (adm.cor <= 3 || adm.con <=3) 
 			return 1;
 		return 0
+	},
+	ValVig: vig => {
+		if (isNaN())
+			return 1;
 	}
 }
 module.exports = regex; 

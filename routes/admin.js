@@ -35,9 +35,13 @@ router.post('/Iniciar', function(req,res) {
 	});
 });
 
-router.post('/RegistrarVig', function(req, res) {
-	if(!req.session.nombre)
-		return res.send("Primero tienes que iniciar sesion"); 
+router.post('/RegistrarVig', function(req,res) {
+	//if (val.ValAdm(req.body) != 0) 
+	//	return res.send("Ingresa tus datos correctamente");	
+	console.log(req.body);
+	DB.Iniciar(req.body).then(succes=>{
+		return res.send("Ya se registro puto");
+	});
 });
 
 /*Rutas get para cambiar de página*/
@@ -46,7 +50,7 @@ router.get('/AdminVig',function(req, res) {
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
-	return res.render("AdmVig", {user: JSON.stringify(req.body.nombre)});
+	return res.render("AdmVig", {user: req.body.nombre});
 });
 
 router.get('/Registros',function(req, res) {

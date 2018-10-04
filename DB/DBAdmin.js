@@ -4,7 +4,7 @@ const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
    user: 'root',
-   password: 'holamundo',
+   password: 'n0m3l0',
    database: 'Floppy',
    port: 3306
 });
@@ -25,7 +25,9 @@ var funciones = {
               throw err;
             if (result.length == 0) 
               return resolve({"response":0});
-            //var data = cipher.d(result[0].pas_adm);
+            var data = cipher.d(result[0].pas_adm);
+            console.log("Raghvsahgvdsaghvd ::::: " + JSON.stringify(result[0]));
+            console.log("HVJHVJDSHVC :::::: " + data);
             //if (admin.con != data)
               //return resolve({"response":0});
             return resolve({"response":1 , "nombre":result[0].nom_adm})
@@ -43,7 +45,7 @@ var funciones = {
  },
  InsertarFrac: frac =>{
   return new Promise ((resolve, reject)=>{
-    con.query('INSERT INTO FRACCIONAMIENTO (?,?,?,?)',[],  function(error, result){
+    con.query('INSERT INTO FRACCIONAMIENTO (?,?,?,?)',[frac],  function(error, result){
       if (error)
         throw error;
       return resolve(result);
@@ -60,7 +62,13 @@ var funciones = {
    });
  },
  InsertarIdVid: id =>{
-
+  return new Promise ((resolve, reject)=>{
+    con.query('INSERT id VIGILANTE dir_fra',[frac],  function(error, result){
+      if (error)
+        throw error;
+      return resolve(result);
+     });
+   });
  } 
 } 
 module.exports = funciones;
