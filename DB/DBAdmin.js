@@ -1,10 +1,11 @@
-var mysql = require('mysql');
+var mysql = require('mysql'); 
+var DBVal = require('./DBAdminRegex.js');
 const cipher = require('../routes/cipher.js');
 const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
    user: 'root',
-   password: 'n0m3l0',
+   password: 'holamundo',
    database: 'Floppy',
    port: 3306
 });
@@ -12,31 +13,27 @@ var con = mysql.createConnection({
 con.connect(function(error){
    if(error){
       throw error;
-   }else{
+   }else{ 
       console.log('Conexion correcta.');
    }
 });
+//Regresar 0 para errores
 
 var funciones = {
-   Iniciar: admin =>{ 
-      return new Promise((resolve, reject) => {
-         con.query('SELECT *FROM ADMIN WHERE cor_adm=? ', [admin.cor], (err, result) => {
-            if (err)
-              throw err;
-            if (result.length == 0) 
-              return resolve({"response":0});
-            var data = cipher.d(result[0].pas_adm);
-            console.log("Raghvsahgvdsaghvd ::::: " + JSON.stringify(result[0]));
-            console.log("HVJHVJDSHVC :::::: " + data);
-            //if (admin.con != data)
-              //return resolve({"response":0});
-            return resolve({"response":1 , "nombre":result[0].nom_adm})
-         });
+  Iniciar: admin =>{ 
+    return new Promise((resolve, reject) => {
+      con.query('SELECT *FROM ADMIN WHERE cor_adm=? ', [admin.cor], (err, result) => {
+      if (err)
+        throw err;
+      if (result.length == 0) 
+        return resolve({"response":0});
+      return resolve({"response":1 , "nombre":result[0].nom_adm})
       });
-   },
+    });
+  },
   Consultar: e =>{
   return new Promise ((resolve, reject)=>{
-    con.query('SELECT * FROM usuario usuario',  function(error, result){
+    con.query('SELECT *FROM usuario usuario',  function(error, result){
       if (error)
         throw error;
       return resolve(result);
@@ -45,30 +42,34 @@ var funciones = {
  },
  InsertarFrac: frac =>{
   return new Promise ((resolve, reject)=>{
-    con.query('INSERT INTO FRACCIONAMIENTO (?,?,?,?)',[frac],  function(error, result){
-      if (error)
-        throw error;
-      return resolve(result);
-     });
+    DBVal.ExisteFrac(frac.dir).then(objeto =>{
+      if (objeto != 0) 
+        return resolve(0);
+      con.query('INSERT INTO FRACCIONAMIENTO(dir_fra, cap_fra) VALUES(?,?)',[frac.dir, frac.cap], function(error, result){
+        if (error)
+          throw error;
+        return resolve(1);
+      });
+    });
    });
  },
  InsertarVig: vig =>{
   return new Promise ((resolve, reject)=>{
-    con.query('INSERT INTO VIGILANTE dir_fra',[frac],  function(error, result){
-      if (error)
+    con.query('INSERT INTO VIGILANTE(nom_vig,pas_vig,cor_vig,dir_vig,tel_vig) VALUES (?,?,?,?,?)', [vig.nom, cipher.cifrar(vig.pas), vig.cor, vig.dir, cipher.cifrar(vig.tel)], function(error, result){
+      if (error)    
         throw error;
       return resolve(result);
      });
    });
  },
- InsertarIdVid: id =>{
+ InsertarIdVig: dir =>{
   return new Promise ((resolve, reject)=>{
-    con.query('INSERT id VIGILANTE dir_fra',[frac],  function(error, result){
+    con.query('INSERT INTO FRACCIONAMIENTO(id_vig) SELECT id_vig FROM VIGILANTE WHERE dir_vig = ?',[dir.dir],  function(error, result){
       if (error)
         throw error;
       return resolve(result);
      });
    });
- } 
+  } 
 } 
 module.exports = funciones;

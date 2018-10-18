@@ -24,7 +24,6 @@ router.post('/Iniciar', function(req,res) {
 	//	return res.send("Ingresa tus datos correctamente");	
 	console.log(req.body);
 	DB.Iniciar(req.body).then(succes=>{
-		console.log("Este es el stringify que se recibe" + JSON.stringify(succes));
 		if (succes.response != 1) 
 			return res.send("Contraseña o usuario incorrecto");
 		req.session.nombre = succes.nombre;
@@ -39,8 +38,14 @@ router.post('/RegistrarVig', function(req,res) {
 	//if (val.ValAdm(req.body) != 0) 
 	//	return res.send("Ingresa tus datos correctamente");	
 	console.log(req.body);
-	DB.Iniciar(req.body).then(succes=>{
-		return res.send("Ya se registro puto");
+	DB.InsertarFrac(req.body).then(succes=>{
+		if (succes != 1) 
+			return res.send("Ese fraccionamiento ya ha sido registrado");
+		DB.InsertarVig(req.body).then(succes=>{
+			//DB.InsertarIdVig(req.body).then(succes=>{
+				res.send("Ya se registro");
+			//});	
+		});
 	});
 });
 
@@ -63,6 +68,7 @@ router.get('/Registros',function(req, res) {
 router.get('/Fraccionamientos',function(req, res) {
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
+	DB.	
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
 	return res.render("Fraccion", {user: JSON.stringify(req.body.nombre)});
 });
