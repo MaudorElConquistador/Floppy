@@ -8,7 +8,7 @@ var regex = {
 		return 0
 	},
 	ValVig: vig => {
-		if (isNaN())
+		if (isNaN(vig.tel))
 			return 1;
 	}
 }

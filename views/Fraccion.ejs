@@ -27,52 +27,22 @@
 	</header>
 	<main class="row">
 	<div class=" col s12">
-		<p class="flow-text">Estado de los usuarios en el fraccionamiento</p>
-		<blockquote >Consulta de usuarios</blockquote>
-					<div class="col s6">
-				<select >
-					<option>Fraccionamiento 5</option>
-					<option>Fraccionamiento 2</option>
-					<option>Fraccionamiento 3</option>
-				</select>	
+		<p class="flow-text">Estado de los usuarios en el fraccionamiento</p><br>
+		<form class="col s10">
+			<div class="input-field col s6">
+				<select>
+					<option value="1">Fraccionamiento 5</option>
+					<option value="2">Fraccionamiento 2</option>
+					<option value="3">Fraccionamiento 3</option>
+				</select>
+				<label>Elije el Fraccionamiento</label>	
 			</div>
-			<div style="width: 70%">
-				        <table class="striped">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Placas</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>Francisco</td>
-              <td class="celda" style="background-color: red"><text class="texto">Fuera</text></td>
-            </tr>
-            <tr>
-              <td>María</td>
-              <td class="celda" style="background-color: red"><text class="texto">Fuera</text></td>
-            </tr>
-            <tr>
-              <td>Miguel</td>
-              <td class="celda" style="background-color: green"><text class="texto">Adentro</text></td>
-            </tr>
-          </tbody>
-        </table>
-			</div>
+		</form>
 	</div>
 	</main>
-
-	<script type="text/javascript">
-		var x = document.getElementsByClassName("texto");
-		if(x = "Fuera"){
-			document.getElementsByClassName("celda").style.backgroundColor = "#66ff33";
-		}
-	</script>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="/Floppy/public/javascripts/materialize.js"></script>
-	<script src="/Floppy/public/javascripts/otro.js"></script>
-	<script src="/Floppy/public/javascripts/init.js"></script>
+	<script src="../javascripts/materialize.js"></script>
+	<script src="../javascripts/otro.js"></script>
+	<script src="../javascripts/init.js"></script>
 </body>
 </html>
