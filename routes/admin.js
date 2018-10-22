@@ -1,7 +1,7 @@
 var express = require('express');
 var session = require('express-session');
 var router = express.Router();
-var DB = require('../DB/DBAdmin');
+var DB = require('../DB/ControladorAdmin/DBAdmin');
 var val = require('./regex');
 const path = require('path');
 const body_parser = require('body-parser');
@@ -20,32 +20,44 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/Iniciar', function(req,res) {
-	//if (val.ValAdm(req.body) != 0) 
-	//	return res.send("Ingresa tus datos correctamente");	
-	console.log(req.body);
+	validado = val.ValAdm(req.body);
+	if (validado != 0)
+		return res.send(validado);
 	DB.Iniciar(req.body).then(succes=>{
-		if (succes.response != 1) 
+		if (succes.response != 1)
 			return res.send("Contraseña o usuario incorrecto");
-		req.session.nombre = succes.nombre;
-		console.log("Esta es tu sesion amiguito " + req.session.nombre);
-		if (req.body.con != "mauricio") 
+		if (req.body.con != "mauricio")
 			return res.send("Usuarion o contraseña incorrecta");
-		return res.render("AdmVig", {user:succes.nombre});
+		req.session.nombre = succes.nombre;
+		return res.redirect('./AdminVig');
 	});
 });
 
-router.post('/RegistrarVig', function(req,res) {
-	//if (val.ValAdm(req.body) != 0) 
-	//	return res.send("Ingresa tus datos correctamente");	
+router.post('/RegistrarVigFrac', function(req,res) {
+	//if (val.ValAdm(req.body) != 0)
+	//	return res.send("Ingresa tus datos correctamente");
+	if(!req.session.nombre)
+		return res.send("Primero tienes que iniciar sesion");
 	console.log(req.body);
-	DB.InsertarFrac(req.body).then(succes=>{
-		if (succes != 1) 
-			return res.send("Ese fraccionamiento ya ha sido registrado");
-		DB.InsertarVig(req.body).then(succes=>{
-			//DB.InsertarIdVig(req.body).then(succes=>{
-				res.send("Ya se registro");
-			//});	
+	DB.InsertarVig(req.body).then(Vigilante=>{
+		if (Vigilante != 1)
+			return res.send(Vigilante);
+		DB.InsertarFrac(req.body).then(Fraccionamiento=>{
+			if (Fraccionamiento != 1)
+				return res.send(Fraccionamiento);
+			DB.InsertarIdVig(req.body).then(succes=>{
+				res.send("El fraccionamiento y su vigilante ha sido registrados");
+			});
 		});
+	});
+});
+
+router.post('/ConsultarVig', function(req,res) {
+	if(!req.session.nombre)
+		return res.send("Primero tienes que iniciar sesion");
+	DB.ConsultarFrac().then(Fraccionamientos =>{
+		if (Fraccionamientos)
+			return res.send(Fraccionamientos.mensaje);
 	});
 });
 
@@ -55,29 +67,34 @@ router.get('/AdminVig',function(req, res) {
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
-	return res.render("AdmVig", {user: req.body.nombre});
+	return res.render("VistasAdmin/AdmVig", {user: req.body.nombre});
 });
 
 router.get('/Registros',function(req, res) {
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
-	return res.render("UsRegis", {user: JSON.stringify(req.body.nombre)});
+	DB.ConsultarVigyFrac(req.body).then(succes=>{
+		console.log("GHVJHVJH ::::: " + JSON.stringify(succes[0]))
+		return res.render("VistasAdmin/UsRegis", {user: req.session.nombre, Consulta: succes[0]});
+	});
 });
 
 router.get('/Fraccionamientos',function(req, res) {
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
-	DB.	
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
-	return res.render("Fraccion", {user: JSON.stringify(req.body.nombre)});
+	DB.ConsultarFrac(req.body).then(succes=>{
+		console.log("Esto es esto " + JSON.stringify(succes));
+		if (succes==0)
+			return res.render("VistasAdmin/Fraccion", {user: JSON.stringify(req.body.nombre)});
+		return res.render("VistasAdmin/Fraccion", {user: req.session.nombre, Fraccionamiento: succes});
+	});
 });
 
 router.get('/Salir',function(req, res) {
-	if(!req.session.nombre)
-		return res.send("Primero tienes que iniciar sesion");
-	req.session.nombre = null;	
-	res.redirect('./');
+	req.session.nombre = null;
+	res.redirect('/');
 });
 
 module.exports = router;
