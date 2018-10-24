@@ -1,8 +1,8 @@
-var mysql = require('mysql'); 
-var DBVal = require('./DBAdminRegex.js');
+const mysql = require('mysql');
+const DBVal = require('./DBAdminRegex.js');
 const cipher = require('../routes/cipher.js');
 const escape = require("mysql").escape;
-var con = mysql.createConnection({
+const con = mysql.createConnection({
    host: 'localhost',
    user: 'root',
    password: 'holamundo',
@@ -18,11 +18,10 @@ con.connect(function(error){
    }
 });
 //Regresar 0 para errores
-
-var funciones = {
+const funciones = {
   Iniciar: admin =>{ 
     return new Promise((resolve, reject) => {
-      con.query('SELECT *FROM ADMIN WHERE cor_adm=? ', [admin.cor], (err, result) => {
+      con.query('SELECT * FROM ADMIN WHERE cor_adm=?', [admin.cor], (err, result) => {
       if (err)
         throw err;
       if (result.length == 0) 
@@ -70,6 +69,6 @@ var funciones = {
       return resolve(result);
      });
    });
-  } 
-} 
+  }
+};
 module.exports = funciones;

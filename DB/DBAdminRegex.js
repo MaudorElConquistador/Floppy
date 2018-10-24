@@ -1,7 +1,7 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 const cipher = require('../routes/cipher.js');
 const escape = require("mysql").escape;
-var con = mysql.createConnection({
+const con = mysql.createConnection({
    host: 'localhost',
    user: 'root',
    password: 'holamundo',
@@ -17,7 +17,7 @@ con.connect(function(error){
    }
 });
 
-var funciones = {
+const funciones = {
    ExisteFrac: dir =>{
       return new Promise ((resolve, reject)=>{
          con.query('SELECT *FROM FRACCIONAMIENTO WHERE dir_fra = ?', [dir],function(error, result){
