@@ -18,7 +18,6 @@ con.connect(function(error){
    }
 });
 //Regresar 0 para errores
-
 const funciones = {
   Iniciar: admin =>{ 
     return new Promise((resolve, reject) => {

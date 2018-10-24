@@ -35,18 +35,32 @@ router.post('/Iniciar', function(req,res) {
 	});
 });
 
-router.post('/RegistrarVig', function(req,res) {
-	//if (val.ValAdm(req.body) != 0) 
-	//	return res.send("Ingresa tus datos correctamente");	
+router.post('/RegistrarVigFrac', function(req,res) {
+	//if (val.ValAdm(req.body) != 0)
+	//	return res.send("Ingresa tus datos correctamente");
+	if(!req.session.nombre)
+		return res.send("Primero tienes que iniciar sesion");
 	console.log(req.body);
-	DB.InsertarFrac(req.body).then(success=>{
-		if (success != 1)
-			return res.send("Ese fraccionamiento ya ha sido registrado");
-		DB.InsertarVig(req.body).then(success=>{
-			//DB.InsertarIdVig(req.body).then(success=>{
-				res.send("Ya se registro");
-			//});	
+  
+	DB.InsertarVig(req.body).then(Vigilante=>{
+		if (Vigilante != 1)
+			return res.send(Vigilante);
+		DB.InsertarFrac(req.body).then(Fraccionamiento=>{
+			if (Fraccionamiento != 1)
+				return res.send(Fraccionamiento);
+			DB.InsertarIdVig(req.body).then(succes=>{
+				res.send("El fraccionamiento y su vigilante ha sido registrados");
+			});
 		});
+	});
+});
+
+router.post('/ConsultarVig', function(req,res) {
+	if(!req.session.nombre)
+		return res.send("Primero tienes que iniciar sesion");
+	DB.ConsultarFrac().then(Fraccionamientos =>{
+		if (Fraccionamientos)
+			return res.send(Fraccionamientos.mensaje);
 	});
 });
 
@@ -56,14 +70,17 @@ router.get('/AdminVig',function(req, res) {
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
-	return res.render("AdmVig", {user: req.body.nombre});
+	return res.render("VistasAdmin/AdmVig", {user: req.body.nombre});
 });
 
 router.get('/Registros',function(req, res) {
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
-	return res.render("UsRegis", {user: JSON.stringify(req.body.nombre)});
+	DB.ConsultarVigyFrac(req.body).then(succes=>{
+		console.log("GHVJHVJH ::::: " + JSON.stringify(succes[0]))
+		return res.render("VistasAdmin/UsRegis", {user: req.session.nombre, Consulta: succes[0]});
+	});
 });
 
 router.get('/Fraccionamientos',function(req, res) {
@@ -71,14 +88,17 @@ router.get('/Fraccionamientos',function(req, res) {
 		return res.send("Primero tienes que iniciar sesion");
 	DB.	
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
-	return res.render("Fraccion", {user: JSON.stringify(req.body.nombre)});
+	DB.ConsultarFrac(req.body).then(succes=>{
+		console.log("Esto es esto " + JSON.stringify(succes));
+		if (succes==0)
+			return res.render("VistasAdmin/Fraccion", {user: JSON.stringify(req.body.nombre)});
+		return res.render("VistasAdmin/Fraccion", {user: req.session.nombre, Fraccionamiento: succes});
+	});
 });
 
 router.get('/Salir',function(req, res) {
-	if(!req.session.nombre)
-		return res.send("Primero tienes que iniciar sesion");
-	req.session.nombre = null;	
-	res.redirect('./');
+	req.session.nombre = null;
+	res.redirect('/');
 });
 
 module.exports = router;
