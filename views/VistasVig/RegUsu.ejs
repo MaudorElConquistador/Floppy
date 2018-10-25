@@ -9,11 +9,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-	<script>
-		$(document).ready(function(){
-			$('.slidenav').slidenav();
-		});
-	</script>
 	<header class="row"><div>
 	<nav class="yellow darken-2">
 		<div class="nav-wrapper">
@@ -47,7 +42,7 @@
 	<main class="row">
 	<div class=" col s12">
 		<blockquote>Aqui se va administrar a los vigilantes de un unidad</blockquote>
-		<form class="card-panel grey lighten-4 col s12" action="Enviar" method="POST">
+		<form class="card-panel grey lighten-4 z-depth-1 col s12" action="Enviar" method="POST">
 			<h5 class="card-panel yellow darken-2" align="center">Ingresa el correo electronico del habitante que quieras registrar</h5>
 			<div class="input-field col s8">
 				<i class="material-icons prefix">account_circle</i>
@@ -55,13 +50,13 @@
 				<label class="activate" for="correo">Correo del habitante</label>
 			</div>
 			<div class="input-field col s8">
-				<input type="submit" value="Enviar" class="btn waves-effect yellow darken-2" name="Registrar">
+				<input type="button" value="Enviar" class="btn waves-effect yellow darken-2" onclick="EnviarEmail(event)" name="Registrar">
 			</div>
 		</form>	
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="../javascripts/AJAX.js"></script>
+	<script src="../javascripts/AJAXVig.js"></script>
 	<script src="../javascripts/materialize.js"></script>
 	<script src="../javascripts/otro.js"></script>
 	<script src="../javascripts/init.js"></script>

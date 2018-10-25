@@ -7,8 +7,14 @@ var regex = {
 		return 0;
 	},
 	ValRegistro: vig => {
-		if (isNaN(vig.tel))
-			return 1;
+		let regex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
+		if (!regex.test(vig.cor))
+			return "Ingresa un nombre correcto";
+		if (isNaN(vig.tel) || vig.tel.length < 8 || vig.tel.length > 8 )
+			return "Ingresa un número telefonico valido de 8 números";
+		if (vig.tel.length > 10 ) 
+			return "La capacidad del fraccionamiento no tiene que superar la cantidad de 10 vehiculos, ni ser cantidades negativas";
+		return 0
 	},
 	ValVig: vig => {
 		if (vig.corvig.length <= 3 || vig.convig.length <=3) 

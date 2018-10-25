@@ -35,9 +35,9 @@
 			</div>
 			<div class="col s6">
 				<select >
-					<option>Fraccionamiento 1</option>
-					<option>Fraccionamiento 2</option>
-					<option>Fraccionamiento 3</option>
+					<% Fraccionamiento.forEach(function(Fraccionamiento){ %>
+						<option><%= Fraccionamiento.dir_fra%></option>
+					<% }); %>
 				</select>	
 			</div>
 			<div class="input-field col s8">
@@ -58,7 +58,6 @@
 			</form>
 		</div>
 	</main>
-	<footer></footer>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="./javascripts/materialize.js"></script>
 	<script src="./javascripts/otro.js"></script>

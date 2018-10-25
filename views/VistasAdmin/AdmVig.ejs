@@ -9,83 +9,83 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-	<script>
-		$(document).ready(function(){
-			$('.slidenav').slidenav();
-		});
-	</script>
 	<header class="row"><div>
-		<nav class="yellow darken-2">
-			<div class="nav-wrapper">
-			  <a href="#" class="brand-logo">Floppy</a>
-			  <a href="#" class="sidenav-trigger" data-target="mobile-nav">
-				  <i class="material-icons">menu</i>
-			  </a>
-
-			  <ul id="nav-mobile" class="right hide-on-med-and-down">
-
-			    <li><a href="./Registros">Usuarios Registrados</a></li>
-			    <li><a href="./AdminVig">Administrar Vigilantes</a></li>
-			    <li><a href="./Fraccionamientos">Fraccionamientos</a></li>
-			  	<li><a class="#"><i class="material-icons">account_circle</i></a></li>
-			  	<li><a href="./Salir">Salir</a></li>
-			  	<li><a class="#"><%= user %></a></li>
-			  </ul>
-			</div>
-		</nav>
-
-		<ul class="sidenav" id="mobile-nav">
-			<li><a href="./Registros">Usuarios Registrados</a></li>
-			<li><a href="./AdminVig">Administrar Vigilantes</a></li>
-			<li><a href="./Fraccionamientos">Fraccionamientos</a></li>
-			<li><a class="#"><i class="material-icons">account_circle</i></a></li>
-			<li><a href="./Salir">Salir</a></li>
-			<li><a class="#"><%= user %></a></li>
-		</ul>
+	<nav class="yellow darken-2">
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo">Floppy</a>
+			<a href="#" class="sidenav-trigger" data-target="mobile-nav">
+			<i class="material-icons">menu</i></a>
+		  <ul id="nav-mobile" class="right hide-on-med-and-down">
+		    <li><a href="./Registros">Usuarios Registrados</a></li>
+		    <li><a href="./AdminVig">Administrar vigilantes</a></li>
+		    <li><a href="./Fraccionamientos">Fraccionamientos</a></li>
+		  	<li><a class="#"><i class="material-icons">account_circle</i></a></li>
+		  	<li><a href="./Salir">Salir</a></li>
+		  </ul>
+		</div>
+	</nav>
+		
+	<ul class="sidenav" id="mobile-nav">
+		<li><div class="user-view">
+	      <div class="background">
+	        <img src="../images/estacionamiento.jpg">
+	      </div>
+	      <a class="#"><i class="material-icons">account_circle</i></a>
+	      <a><span class="white-text email"><%= user %></span></a>
+    	</div></li>
+	    <li><a href="./Registros">Usuarios Registrados</a></li>
+	    <li><a href="./AdminVig">Administrar vigilantes</a></li>
+	    <li><a href="./Fraccionamientos">Fraccionamientos</a></li>
+		<li><a href="./Salir">Salir</a></li>
+	</ul>
 	</header>
 	<!--Holi papu-->
 	<main class="row">
 	<div class=" col s12">
-		<p class="flow-text">Aqui se va administrar a los vigilantes de un unidad</p>
-			<div id="exitoReg"></div>
-			<form class="col s12">
-				<div class="input-field col s8">
+		<p class="flow-text" align="center">Aqui se va administrar a los vigilantes de un unidad</p>
+			<form class="card-panel col s12">
+			<div class="col s6">
+				<p>Datos del fraccionamiento</p>
+				<div class="input-field col s10">
 					<i class="material-icons prefix">account_circle</i>
 					<input name="nom" type="text" id="nombre">
 					<label class="activate" for="nombre">Ingresa tu nombre completo</label>
 				</div>
-				<div class="input-field col s8">
+				<div class="input-field col s10">
 					<i class="material-icons prefix">lock</i>
 					<input name="pas" type="password" id="contraseña">
 					<label class="activate" for="contraseña">Ingresar tu contraseña</label>
 				</div>
-				<div class="input-field col s8">
+				<div class="input-field col s10">
 					<i class="material-icons prefix">contact_mail</i>
 					<input name="cor" type="email" id="contacto">
 					<label class="activate" for="contacto">Ingresar correo electronico</label>
 				</div>
-				<div class="input-field col s8">
+				<div class="input-field col s10">
 					<i class="material-icons prefix">contact_phone</i>
 					<input name="tel" type="text" id="contactotelefono">
 					<label class="activate" for="contactotelefono">Ingresar contacto telefonico</label>
 				</div>
-				<div class="input-field col s8">
+			</div>
+			<div class="col s6">
+				<p>Datos del fraccionamiento</p>
+				<div class="input-field col s10">
 					<i class="material-icons prefix">place</i>
 					<input name="dir" type="text" id="direccion">
 					<label class="activate" for="direccion">Dirección del fraccionamiento</label>
 				</div>
-				<div class="input-field col s8">
+				<div class="input-field col s10">
 					<i class="material-icons prefix"></i>
 					<input name="cap" type="number" id="capacidad">
 					<label class="activate" for="capacidad">Capacidad del fraccionamiento</label>
 				</div>
-				<div class="input-field col s8">
+				<div class="input-field col s10">
 					<input type="button" value="Registrar" class="btn waves-effect waves-light" name="Registrar" onclick="InsertarFrac(event)">
 				</div>
+			</div>
 			</form>
-		<br>
-		<blockquote class="col s12">Modificar datos del vigilante</blockquote>
-		<form class="col s12">
+		<p class="flow-text" align="center">Modificar datos del fraccionamiento</p>
+		<form class="card-panel col s12">
 				<div class="input-field col s8">
 					<select>
 						<option value="" disabled selected>Elija su fraccionamiento</option>

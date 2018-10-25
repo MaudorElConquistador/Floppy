@@ -12,18 +12,34 @@
 </head>
 <body>
 	<header class="row"><div>
-		<nav class="yellow darken-2">
-		<div class="nav-wrapper">	
-		  <a href="#" class="brand-logo">Floppy</a>
+	<nav class="yellow darken-2">
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo">Floppy</a>
+			<a href="#" class="sidenav-trigger" data-target="mobile-nav">
+			<i class="material-icons">menu</i></a>
 		  <ul id="nav-mobile" class="right hide-on-med-and-down">
 		    <li><a href="./Registros">Usuarios Registrados</a></li>
-		    <li><a href="./AdminVig">Administrar Vigilantes</a></li>
+		    <li><a href="./AdminVig">Administrar vigilantes</a></li>
 		    <li><a href="./Fraccionamientos">Fraccionamientos</a></li>
-		    <li><a href="./Salir">Salir</a></li>
 		  	<li><a class="#"><i class="material-icons">account_circle</i></a></li>
+		  	<li><a href="./Salir">Salir</a></li>
 		  </ul>
 		</div>
-		</nav>
+	</nav>
+		
+	<ul class="sidenav" id="mobile-nav">
+		<li><div class="user-view">
+	      <div class="background">
+	        <img src="../images/estacionamiento.jpg">
+	      </div>
+	      <a class="#"><i class="material-icons">account_circle</i></a>
+	      <a><span class="white-text email"><%= user %></span></a>
+    	</div></li>
+	    <li><a href="./Registros">Usuarios Registrados</a></li>
+	    <li><a href="./AdminVig">Administrar vigilantes</a></li>
+	    <li><a href="./Fraccionamientos">Fraccionamientos</a></li>
+		<li><a href="./Salir">Salir</a></li>
+	</ul>
 	</header>
 	<main class="row">
 	<div class=" col s12">
@@ -31,13 +47,16 @@
 		<div class="input-field col s6">
 			<select class = "browser-default" onchange="ConsultarFrac(event)"><!--Poner una función onchange para que cada vez que cambie haga una petición ajax y genere una tabla-->
 				<% Fraccionamiento.forEach(function(Fraccionamiento){ %>
-				<option><%= Fraccionamiento.dir_fra%></option>
+					<option><%= Fraccionamiento.dir_fra%></option>
 				<% }); %>
 			</select>	
 		</div>
 	</div>
+	<div id="HOLI"></div>
 	</main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="../javascripts/AJAXUser.js"></script>
 	<script src="../javascripts/materialize.js"></script>
 	<script src="../javascripts/otro.js"></script>
 	<script src="../javascripts/init.js"></script>

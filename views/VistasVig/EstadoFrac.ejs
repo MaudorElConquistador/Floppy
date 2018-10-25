@@ -9,11 +9,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-	<script>
-		$(document).ready(function(){
-			$('.slidenav').slidenav();
-		});
-	</script>
 	<header class="row"><div>
 		<nav class="yellow darken-2">
 			<div class="nav-wrapper">
@@ -43,12 +38,24 @@
 		<li><a href="./Salir">Salir</a></li>
 	</ul>
 	</header>
-
 	<% if(Fraccionamiento){ %>
-		<div><p>Si jala esta madrola</p></div>
+		<table>
+			<thead>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</thead>
+		</table>
 	<% } else { %>
 		<div><p>No hay ningún usuario registrado</p></div>
 	<% }%>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="../javascripts/AJAX.js"></script>
+	<script src="../javascripts/materialize.js"></script>
+	<script src="../javascripts/otro.js"></script>
+	<script src="../javascripts/init.js"></script>
 </body>
 </html>

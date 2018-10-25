@@ -4,7 +4,7 @@ const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
    user: 'root',
-   password: 'holamundo',
+   password: 'n0m3l0',
    database: 'Floppy',
    port: 3306
 });
@@ -43,3 +43,4 @@ var funciones = {
    },
 } 
 module.exports = funciones;
+///de rendimiento, despliegue y ora madrola

@@ -4,7 +4,7 @@ const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
    user: 'root',
-   password: 'holamundo',
+   password: 'n0m3l0',
    database: 'Floppy',
    port: 3306
 });
@@ -34,11 +34,9 @@ var funciones = {
   },
   ConsultarContraseña: vig =>{
     return new Promise ((resolve, reject)=>{
-      con.query('SELECT FRACCIONAMIENTO.cla_fra FROM FRACCIONAMIENTO INNER JOIN VIGILANTE ON FRACCIONAMIENTO.dir_fra = VIGILANTE.dir_vig WHERE VIGILANTE.cor_vig = ?', [vig.corvig] ,function(error, result){
+      con.query('SELECT FRACCIONAMIENTO.cla_fra FROM FRACCIONAMIENTO INNER JOIN VIGILANTE ON FRACCIONAMIENTO.dir_fra = VIGILANTE.dir_vig WHERE VIGILANTE.cor_vig = ?', [vig] ,function(error, result){
         if (error)
           throw error;
-        if (result.length == 0)
-          return resolve("No hay ningún vigilante registrado con ese nombre");
         return resolve(result);
       });
     });

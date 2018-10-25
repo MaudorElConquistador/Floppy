@@ -5,7 +5,7 @@ const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
    user: 'root',
-   password: 'holamundo',
+   password: 'n0m3l0',
    database: 'Floppy',
    port: 3306
 });
@@ -49,7 +49,7 @@ var funciones = {
         console.log("Esto esta pasando " + Vigilante);
         if (Vigilante != 0) 
           return resolve(Vigilante);
-        con.query('INSERT INTO VIGILANTE(nom_vig,pas_vig,cor_vig,dir_vig,tel_vig) VALUES (?,?,?,?,?)', [vig.nom, cipher.cifrar(vig.pas), vig.cor, vig.dir, cipher.cifrar(vig.tel)], function(error, result){
+        con.query('INSERT INTO VIGILANTE(nom_vig,pas_vig,cor_vig,dir_vig,tel_vig) VALUES (?,?,?,?,?)',[vig.nom, cipher.cifrar(vig.pas), vig.cor, vig.dir, cipher.cifrar(vig.tel)], function(error, result){
           if (error)    
             throw error;
           return resolve(1);

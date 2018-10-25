@@ -14,6 +14,7 @@ router.use(session(
 	resave: false,
 	saveUninitialized:false
 }));
+
 //Rutas post enviar formularios y cosas asi chidas
 router.get('/', function(req, res, next) {
 	res.sendFile("InicioSesionVig.html", {root: path.join(__dirname, "../public/html")});
@@ -25,7 +26,7 @@ router.post('/Ingresar', function(req, res) {
 		return res.send(validado);
 	DBVig.IngresarVig(req.body).then(succes=>{
 		if (succes != 0)
-			return res.send("esto "+succes);
+			return res.send(succes);
 		req.session.nombreVig = req.body.corvig;
 		return res.redirect('./EnviarClave');
 	});
@@ -35,7 +36,7 @@ router.post('/Enviar', function(req, res){
 	if(!req.session.nombreVig)
 		return res.send("Primero tienes que iniciar sesion");
 	DBVig.ConsultarContraseña(req.session.nombreVig).then(clave =>{
-		email.enviar(req.body, clave);
+		email.enviar(req.body, clave[0].cla_fra);
 		res.send("Ya se envio la clave");
 	});
 });
@@ -63,6 +64,5 @@ router.get('/Salir', function(req, res) {
 	req.session.nombreVig = null;
 	res.redirect('./');	
 });
-
 
 module.exports = router;
