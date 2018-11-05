@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "export NODE_ENV=development&&export PORT=80&&node ./bin/www",
-    "nodemon": "export NODE_ENV=development&&export PORT=80&&nodemon ./bin/www"
+    "start": "SET NODE_ENV=development&& SET PORT=80&&node ./bin/www",
+    "nodemon": "SET NODE_ENV=development&& SET PORT=80&&nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

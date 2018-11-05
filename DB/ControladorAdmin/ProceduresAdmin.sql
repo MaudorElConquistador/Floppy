@@ -7,7 +7,6 @@ DROP PROCEDURE IF EXISTS TransaFrac;
 DROP PROCEDURE IF EXISTS TransaUser;
 DROP PROCEDURE IF EXISTS ConsultarVig;
 
-
 CREATE PROCEDURE ConsultarVig(IN Correo VARCHAR(100))
     BEGIN
 		SELECT *FROM VIGILANTE WHERE cor_vig = Correo;
@@ -28,11 +27,11 @@ CREATE PROCEDURE TransaFrac(IN Direccion VARCHAR(100), Capacidad INT, Clave TEXT
 			UPDATE FRACCIONAMIENTO INNER JOIN VIGILANTE ON (VIGILANTE.dir_vig = FRACCIONAMIENTO.dir_fra) SET FRACCIONAMIENTO.id_vig = VIGILANTE.id_vig WHERE dir_fra = VIGILANTE.dir_vig;	
 		COMMIT;
 	END$$
-CREATE PROCEDURE TransaUser(IN Nombre VARCHAR(100), Pasword TEXT, Letras VARCHAR(100), Fraccionamiento INT) 
+CREATE PROCEDURE TransaUser(IN Nombre VARCHAR(100), Password TEXT, Letras VARCHAR(100), Fraccionamiento INT) 
 	BEGIN
 		START TRANSACTION;
-			INSERT INTO HABITANTE(nom_usu, pas_usu, let_car) VALUES(Nombre, Password, Letras);
-			INSERT INTO CAR(let_car) VALUES (Letras);
-			UPDATE HABITANTE INNER JOIN CAR ON (HABITANTE.let_car = CAR.let_car) SET HABITANTE.id_car = CAR.id_car WHERE let_car = CAR.let_car;	
+			INSERT INTO HABITANTE(nom_usu, pas_usu, let_hab, id_fra) VALUES(Nombre, Password, Letras, Fraccionamiento);
+			INSERT INTO CAR(let_car, ) VALUES (Letras);
+			UPDATE HABITANTE INNER JOIN CAR ON (HABITANTE.let_hab = CAR.let_car) SET HABITANTE.id_car = CAR.id_car WHERE HABITANTE.let_hab = CAR.let_car;	
 		COMMIT;
 	END$$

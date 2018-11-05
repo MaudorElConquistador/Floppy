@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ondrop="false" ondrag="return false" onpaste="return false" oncontextmenu="return false">
 <head>
 	<title>Vigilantes o Dueños</title>
 	<meta charset="utf-8">
@@ -12,12 +12,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 </head>
-<body class="grey lighten-2">
+<body class="grey lighten-2" >
 	<div class="valign-wrapper">
-	<div class="row">
+	<div class="row" >
+	    <!--img src="./images/FondoVig.jpg" class="cardbg" /-->
 		<div class="card">
-			<div class="card-panel yellow darken-1"><h5 align="center">Inicia sesión como vigilante</h5></div>
-			<form class="card-panel grey lighten-4 col s12" method="POST" action="/vig/Ingresar">
+			<form class="card-panel grey lighten-4 col s12" ><!--method="POST" action="/vig/Ingresar"-->
+				<div class="card-panel yellow darken-1"><h5 align="center">Inicia sesión como vigilante</h5></div>
 				<div class="input-field col s8">
 					<i class="material-icons prefix">account_circle</i>
 					<input type="email" id="email" name="corvig">
@@ -29,7 +30,7 @@
 					<label class="activate" for="contraseña">Ingresar tu contraseña</label>
 				</div>
 				<div class="input-field col s8">
-					<input type="submit" value="Iniciar sesion" class="btn waves-effect yellow darken-1" >
+					<input type="button" value="Iniciar sesion" class="btn waves-effect yellow darken-1" onclick="LoginVig(event)">
 				</div>
 			</form>
 		</div>
@@ -37,7 +38,8 @@
 	</div>
 	</div>
 	<script src="./javascripts/materialize.js"></script>
-  	<script src="./javascripts/otro.js"></script>
-  	<script src="./javascripts/AJAX.js"></script>
+	<script src="./javascripts/otro.js"></script>
+	<script src="./javascripts/init.js"></script>
+  	<script src="./javascripts/AJAXVig.js"></script>
 </body>
 </html>

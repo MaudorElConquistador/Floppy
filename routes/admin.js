@@ -11,12 +11,18 @@ router.use(body_parser.urlencoded({extended: true}));
 router.use(session(
 	{secret: 'abcd1234567',
 	resave: false,
-	saveUninitialized:false
+	saveUninitialized:false,
+	cookie: {
+		path:'/admin'
+	}
 }));
-
+//Cambiar la ruta de estas madrolas para que las sesiones no tengan problemas entre si
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 	res.sendFile("InicioSesionAdmin.html", {root: path.join(__dirname, "../public/html")});
+	if (req.session.nombre != null)
+	 	return res.redirect('./admin/AdminVig');
+	console.log(req.session.nombre)
 });
 
 router.post('/Iniciar', function(req,res) {
@@ -34,11 +40,12 @@ router.post('/Iniciar', function(req,res) {
 });
 
 router.post('/RegistrarVigFrac', function(req,res) {
-	//if (val.ValAdm(req.body) != 0)
-	//	return res.send("Ingresa tus datos correctamente");
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
-	console.log(req.body);
+	console.log("La madrola "+ JSON.stringify(req.body));
+	validado = val.ValRegistroVigYFrec(req.body);
+	if (validado != 0)
+		return res.send(validado);
 	DB.InsertarVig(req.body).then(Vigilante=>{
 		if (Vigilante != 1)
 			return res.send(Vigilante);
@@ -52,12 +59,13 @@ router.post('/RegistrarVigFrac', function(req,res) {
 	});
 });
 
-router.post('/ConsultarVig', function(req,res) {
+router.post('/EstadoFrac', function(req,res) {
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
-	DB.ConsultarFrac().then(Fraccionamientos =>{
-		if (Fraccionamientos)
+	DB.ConsultarFrac2(req.body).then(Fraccionamientos =>{
+		if (Fraccionamientos.estado)
 			return res.send(Fraccionamientos.mensaje);
+		return res.send(Fraccionamientos);
 	});
 });
 
@@ -84,8 +92,9 @@ router.get('/Fraccionamientos',function(req, res) {
 		return res.send("Primero tienes que iniciar sesion");
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
 	DB.ConsultarFrac(req.body).then(succes=>{
-		if (succes==0)
-			return res.render("VistasAdmin/Fraccion", {user: req.session.nombre, Fraccionamiento: ''});
+		if (succes.length == 0)
+			return res.render("VistasAdmin/Fraccion", {user: req.session.nombre});
+		console.log("Esto es esto " + JSON.stringify(succes) );
 		return res.render("VistasAdmin/Fraccion", {user: req.session.nombre, Fraccionamiento: succes});
 	});
 });

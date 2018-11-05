@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ondrop="false" ondrag="return false" onpaste="return false" oncontextmenu="return false">
 <head>
 	<title>Estado fraccionamiento</title>
 	<meta charset="utf-8">
@@ -38,21 +38,42 @@
 		<li><a href="./Salir">Salir</a></li>
 	</ul>
 	</header>
-	<% if(Fraccionamiento){ %>
-		<table>
-			<thead>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			</thead>
-		</table>
-	<% } else { %>
-		<div><p>No hay ningún usuario registrado</p></div>
-	<% }%>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
-	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<h5>Usuarios que estan adentro del fraccionamiento</h5>
+	<main >	
+		<% if(Fraccionamiento){ %>
+			<table class="responsive-table">
+				<thead>
+					<tr>
+						<td>Habitante</td>
+						<td>Estado</td>
+					</tr>
+				</thead>
+				<tbody>
+					<%Fraccionamiento.forEach(function(fraccionamiento){ %>
+					<tr>
+						<td class="waves-effect waves-light modal-trigger" href="#modal <%= fraccionamiento.nom_usu%>"><%= fraccionamiento.nom_usu%></td>
+						<div id="modal <%= fraccionamiento.nom_usu%>" class="modal modal-fixed-footer">
+							<div class="modal-content">
+								<h4>Modal Header</h4>
+								<p>A bunch of text</p>
+							</div>
+								<div class="modal-footer">
+								<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+							</div>
+						</div>
+						<% if(fraccionamiento.est_car.data == 0){ %>
+							<td class="col s6 red">Afuera</td>
+						<% }else{ %>
+							<td class="col s6 green">Adentro</td>
+						<% } %>
+					</tr>
+					<% });%>
+				</tbody>	
+			</table>
+		<% } else { %>
+			<div><p>No hay ningún usuario registrado</p></div>
+		<% }%>
+	</main>
 	<script src="../javascripts/AJAX.js"></script>
 	<script src="../javascripts/materialize.js"></script>
 	<script src="../javascripts/otro.js"></script>

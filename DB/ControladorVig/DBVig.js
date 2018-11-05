@@ -1,10 +1,11 @@
 var mysql = require('mysql'); 
 const cipher = require('/Floppy/routes/cipher.js');
 const escape = require("mysql").escape;
+var DBUtil = require('../ControladorAdmin/DBAdminRegex.js');
 var con = mysql.createConnection({
    host: 'localhost',
    user: 'root',
-   password: 'n0m3l0',
+   password: 'holamundo',
    database: 'Floppy',
    port: 3306
 });
@@ -38,6 +39,32 @@ var funciones = {
         if (error)
           throw error;
         return resolve(result);
+      });
+    });
+  },
+  ConsultarFrac: nombre =>{
+    return new Promise ((resolve, reject)=>{
+      con.query('SELECT FRACCIONAMIENTO.id_fra from FRACCIONAMIENTO INNER JOIN VIGILANTE ON FRACCIONAMIENTO.id_vig = VIGILANTE.id_vig WHERE VIGILANTE.cor_vig = ?', [nombre] ,function(error, result){
+        if (error)
+          throw error;
+        if (result.length == 0)
+          return resolve("No hay fraccionamiento"); 
+        DBUtil.Habitante(result[0].id_fra).then(resultado =>{
+          if (resultado.estado) 
+            return resolve(resultado.mensaje);
+          return resolve(resultado);
+        }); 
+      });
+    });
+  },
+  ConsultaPlaca: placa =>{
+    return new Promise ((resolve, reject)=>{
+      con.query('SELECT FRACCIONAMIENTO.id_fra from FRACCIONAMIENTO INNER JOIN VIGILANTE ON FRACCIONAMIENTO.id_vig = VIGILANTE.id_vig WHERE VIGILANTE.cor_vig = ?', [nombre] ,function(error, result){
+        if (error)
+          throw error;
+        if (result.length == 0)
+          return resolve(1);
+        return 0;  
       });
     });
   }

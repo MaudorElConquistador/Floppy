@@ -5,7 +5,7 @@ const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
    user: 'root',
-   password: 'n0m3l0',
+   password: 'holamundo',
    database: 'Floppy',
    port: 3306
 });
@@ -46,7 +46,6 @@ var funciones = {
   InsertarVig: vig =>{
     return new Promise ((resolve, reject)=>{
       DBVal.ExisteVig(vig.cor).then(Vigilante =>{
-        console.log("Esto esta pasando " + Vigilante);
         if (Vigilante != 0) 
           return resolve(Vigilante);
         con.query('INSERT INTO VIGILANTE(nom_vig,pas_vig,cor_vig,dir_vig,tel_vig) VALUES (?,?,?,?,?)',[vig.nom, cipher.cifrar(vig.pas), vig.cor, vig.dir, cipher.cifrar(vig.tel)], function(error, result){
@@ -71,7 +70,7 @@ var funciones = {
       con.query('SELECT *FROM FRACCIONAMIENTO ', function(error, result){
         if (error)
           throw error;
-        if (result.length < 1)
+        if (result.length == 0)
           return resolve("No hay ningun fraccionamiento registrado"); 
         return resolve(result);
         });
@@ -85,6 +84,21 @@ var funciones = {
         if (result.length < 1)
           return resolve("No hay ningun fraccionamiento registrado"); 
         return resolve(result);
+        });
+    });
+  },
+  ConsultarFrac2: Fraccion =>{
+    return new Promise ((resolve, reject)=>{
+      con.query('SELECT *FROM FRACCIONAMIENTO WHERE dir_fra = ?',[Fraccion.nom] ,function(error, result){
+        if (error)
+          throw error;
+        if (result.length ==0 )
+          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"}); 
+        DBVal.TodosHabitantes(result[0].id_fra).then(habitantes =>{
+          if (habitantes.estado)
+            return resolve(habitantes.mensaje) 
+          return resolve(habitantes);    
+        });
         });
     });
   }    

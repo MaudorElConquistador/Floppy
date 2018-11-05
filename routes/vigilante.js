@@ -12,8 +12,12 @@ router.use(body_parser.urlencoded({extended: true}));
 router.use(session(
 	{secret: 'abcd1234',
 	resave: false,
-	saveUninitialized:false
+	saveUninitialized:false,
+	cookie: {
+		path:'/vig'
+	}
 }));
+//Cambiar la ruta de estas madrolas para que las sesiones no tengan problemas entre si
 
 //Rutas post enviar formularios y cosas asi chidas
 router.get('/', function(req, res, next) {
@@ -23,12 +27,12 @@ router.get('/', function(req, res, next) {
 router.post('/Ingresar', function(req, res) {
 	validado = val.ValVig(req.body);
 	if (validado != 0)
-		return res.send(validado);
+		return res.json({estado: 1,mensaje:validado});
 	DBVig.IngresarVig(req.body).then(succes=>{
 		if (succes != 0)
-			return res.send(succes);
+			return res.json({estado: 1,mensaje:succes});
 		req.session.nombreVig = req.body.corvig;
-		return res.redirect('./EnviarClave');
+		return res.json({estado: 0});
 	});
 });
 
@@ -51,7 +55,10 @@ router.get('/Usuarios', function(req, res) {
 router.get('/Fraccionamiento', function(req, res) {
 	if(!req.session.nombreVig)
 		return res.send("Primero tienes que iniciar sesion");
-	return res.render("VistasVig/EstadoFrac", {user: req.session.nombreVig, Fraccionamiento :''});	
+	DBVig.ConsultarFrac(req.session.nombreVig).then(cosa =>{
+		console.log("Esto esta pasando " + JSON.stringify(cosa));
+		return res.render("VistasVig/EstadoFrac", {user: req.session.nombreVig, Fraccionamiento:cosa});
+	});		
 });
 
 router.get('/EnviarClave', function(req, res) {

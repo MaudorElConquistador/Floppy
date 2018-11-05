@@ -25,25 +25,30 @@
 		</nav>
 	</header>	
 	<main class="row">
-	<blockquote >Para registrarte en el sistema contacta al Administrador de tu fraccionamiento para que te proporcione una clave que sera enviada a tu correo que te pedira el mismo, una vez que tengas tu clave selecciona tu fraccionamiento : </blockquote><br>
+	<blockquote >Para registrarte en el sistema contacta al Administrador de tu fraccionamiento para que te proporcione una clave que sera enviada a tu correo que te pedira el mismo, una vez que tengas tu clave selecciona tu fraccionamiento : 
+	</blockquote>
 		<div class="col s12">
-			<form class="col s12">
+			<form class="card-panel col s12" >
 			<div class="input-field col s6">
 				<i class="material-icons prefix">lock</i>
-				<input type="password" id="contraseña">
-				<label class="activate" for="contraseña">Ingresa la clave del fraccionamiento</label>
+				<input type="password" id="clave">
+				<label class="activate" for="clave">Ingresa la clave del fraccionamiento</label>
 			</div>
-			<div class="col s6">
-				<select >
-					<% Fraccionamiento.forEach(function(Fraccionamiento){ %>
-						<option><%= Fraccionamiento.dir_fra%></option>
-					<% }); %>
-				</select>	
+			<div class="input-field col s6">
+				<% if(Fraccionamiento == "No hay ningun fraccionamiento registrado"){%>
+					<input type="text" id="opcion" readonly="readonly" value="No hay fraccionamientos">
+				<% } else { %>
+					<select id="opcion" >
+						<% Fraccionamiento.forEach(function(Fraccionamiento){ %>
+							<option><%= Fraccionamiento.dir_fra%></option>
+						<% }); %>
+					</select>	
+				<% }%>
 			</div>
 			<div class="input-field col s8">
 				<i class="material-icons prefix">account_circle</i>
-				<input type="text" id="nombre">
-				<label class="activate" for="nombre">Ingresa tu nombreo</label>
+				<input type="email" id="nombre">
+				<label class="activate" for="nombre">Ingresa tu correo electronico</label>
 			</div>
 			<div class="input-field col s8">
 				<i class="material-icons prefix">lock</i>
@@ -55,11 +60,16 @@
 				<input type="text" id="placas">
 				<label class="activate" for="placas">Ingresa los caracteres de tus placas</label>
 			</div>
+			<div class="input-field col s12">
+				<input type="button" value="Registrar" class="btn waves-effect waves-light" name="Registrar" onclick="Registrarse(event)" >
+			</div>
+			<div class="col s10"><a href="./">¿Ya tienes cuenta? Ve a iniciar sesion</a></div>
 			</form>
 		</div>
 	</main>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="./javascripts/materialize.js"></script>
+	<script src="./javascripts/AJAXUser.js"></script>
 	<script src="./javascripts/otro.js"></script>
 	<script src="./javascripts/init.js"></script>
 </body>
