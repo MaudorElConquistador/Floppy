@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-const cipher = require('/Floppy/routes/cipher.js');
+const cipher = require('../../routes/cipher.js');
 const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
@@ -78,7 +78,7 @@ var funciones = {
    },
    ExisteUser: user =>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT *FROM HABITANTE WHERE nom_usu = ?', [user], function(error, result){
+         con.query('SELECT *FROM HABITANTE WHERE cor_usu = ?', [user], function(error, result){
             if (error)
                throw error;
             if (result.length != 0)
@@ -87,9 +87,34 @@ var funciones = {
          });
       });
    },
+   Capacidad: frac =>{
+      return new Promise ((resolve, reject)=>{
+         con.query('select habitante.nom_usu, fraccionamiento.cap_fra from habitante INNER JOIN fraccionamiento ON habitante.id_fra = fraccionamiento.id_fra where fraccionamiento.dir_fra =?', [frac], function(error, result){
+            if (error)
+               throw error;
+            if (result.length > 1) {
+               if ((result.length+1) > result[0].cap_fra) 
+                  return resolve({estado:1 ,mensaje:"Este fraccionamiento ya esta lleno"})
+            }
+            return resolve({estado:0});
+         });
+      });
+   },
    TodosHabitantes: id=>{
       return new Promise ((resolve, reject)=>{
          con.query('SELECT HABITANTE.nom_usu, CAR.est_car FROM HABITANTE INNER JOIN CAR ON CAR.let_car = HABITANTE.let_hab WHERE HABITANTE.id_fra = ?', [id], function(error, result){
+            console.log("la longitud " + result.length)
+            if (error)
+               throw error;
+            if (result.length == 0)
+               return resolve({estado:1, mensaje:"No hay habitantes en este fraccionamiento"});
+            return resolve({estado:0, mensaje:result});
+         });
+      }); 
+   },
+   Habitante: id=>{
+      return new Promise ((resolve, reject)=>{
+         con.query('SELECT *FROM HABITANTE INNER JOIN CAR ON CAR.id_car = HABITANTE.id_car WHERE HABITANTE.id_fra = ?', [id], function(error, result){
             if (error)
                throw error;
             if (result.length == 0)
@@ -98,16 +123,16 @@ var funciones = {
          });
       }); 
    },
-   Habitante: id=>{
+   ExisteVig2: vig =>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT HABITANTE.nom_usu, HABITANTE.let_hab, CAR.est_car from HABITANTE INNER JOIN CAR ON CAR.id_car = HABITANTE.id_car WHERE HABITANTE.id_fra = ?', [id], function(error, result){
-            if (error)
+         con.query('SELECT *FROM VIGILANTE WHERE cor_vig = ? OR tel_vig = ?', [], function(error, result){
+            if(error)
                throw error;
-            if (result.length == 0)
-               return resolve({estado:1, mensaje:"No hay habitantes en este fraccionamiento"});
-            return resolve(result);
+            if (result.length != 0)
+               return resolve({estado:1, mensaje:"Ya hay una persona registrada con esos datos"});
+            return resolve(0);
          });
-      }); 
+      });
    }
 } 
 module.exports = funciones;

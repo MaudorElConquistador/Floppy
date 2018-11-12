@@ -1,5 +1,5 @@
 var mysql = require('mysql'); 
-const cipher = require('/Floppy/routes/cipher.js');
+const cipher = require('../../routes/cipher.js');
 const escape = require("mysql").escape;
 var DBUtil = require('../ControladorAdmin/DBAdminRegex.js');
 var con = mysql.createConnection({
@@ -59,13 +59,36 @@ var funciones = {
   },
   ConsultaPlaca: placa =>{
     return new Promise ((resolve, reject)=>{
-      con.query('SELECT FRACCIONAMIENTO.id_fra from FRACCIONAMIENTO INNER JOIN VIGILANTE ON FRACCIONAMIENTO.id_vig = VIGILANTE.id_vig WHERE VIGILANTE.cor_vig = ?', [nombre] ,function(error, result){
+      con.query('SELECT *FROM HABITANTE WHERE let_hab = ?', [placa] ,function(error, result){
         if (error)
           throw error;
         if (result.length == 0)
           return resolve(1);
         return 0;  
       });
+    });
+  },
+  ModificarNombreHab: Habitante =>{
+    return new Promise ((resolve, reject)=>{
+       con.query('UPDATE Habitante SET nom_usu = ? WHERE cor_usu = ?',[Habitante.nom,Habitante.que] ,function(error, result){
+        console.log("si esta entrando a la funcion");
+        if (error)
+          throw error;
+        if (result.length == 0)
+          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"});
+        return resolve("otra madrola");
+        });
+    });
+  },
+  ModificarContraseñaHab: Habitante =>{
+    return new Promise ((resolve, reject)=>{
+       con.query('UPDATE Habitante SET pas_usu = ? WHERE cor_usu = ?',[cipher.cifrar(Habitante.con),Habitante.que] ,function(error, result){
+        if (error)
+          throw error;
+        if (result.length == 0)
+          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"});
+        return resolve("otra madrola");
+        });
     });
   }
 }

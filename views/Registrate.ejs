@@ -6,7 +6,7 @@
 	<!--Import Google Icon Font-->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!--Import materialize.css-->
-	<link type="text/css" rel="stylesheet" href="./css/materialize.min.css"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
 
 	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -47,8 +47,13 @@
 			</div>
 			<div class="input-field col s8">
 				<i class="material-icons prefix">account_circle</i>
-				<input type="email" id="nombre">
-				<label class="activate" for="nombre">Ingresa tu correo electronico</label>
+				<input type="text" id="nombre">
+				<label class="activate" for="nombre">Ingresa tu correo nombre</label>
+			</div>
+			<div class="input-field col s8">
+				<i class="material-icons prefix">contact_mail</i>
+				<input type="email" id="correo" placeholder="usuario@ejemplo.com">
+				<label class="activate" for="correo">Ingresa tu correo electronico</label>
 			</div>
 			<div class="input-field col s8">
 				<i class="material-icons prefix">lock</i>
@@ -57,7 +62,12 @@
 			</div>
 			<div class="input-field col s8">
 				<i class="material-icons prefix"></i>
-				<input type="text" id="placas">
+				<input type="text" id="marca">
+				<label class="activate" for="marca">Ingresa la marca de tu auto</label>
+			</div>
+			<div class="input-field col s8">
+				<i class="material-icons prefix"></i>
+				<input type="text" id="placas" placeholder="AAA-999 o AAA-9999">
 				<label class="activate" for="placas">Ingresa los caracteres de tus placas</label>
 			</div>
 			<div class="input-field col s12">
@@ -68,9 +78,9 @@
 		</div>
 	</main>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="./javascripts/materialize.js"></script>
-	<script src="./javascripts/AJAXUser.js"></script>
-	<script src="./javascripts/otro.js"></script>
-	<script src="./javascripts/init.js"></script>
+	<script src="/javascripts/materialize.js"></script>
+	<script src="/javascripts/AJAXUser.js"></script>
+	<script src="/javascripts/otro.js"></script>
+	<script src="/javascripts/init.js"></script>
 </body>
 </html>

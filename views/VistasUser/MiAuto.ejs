@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ondrop="false" ondrag="return false" onpaste="return false" oncontextmenu="return false">
+<html>
 <head>
 	<title>Mi auto</title>
 	<meta charset="utf-8">
@@ -16,9 +16,8 @@
 			<a href="#" class="sidenav-trigger" data-target="mobile-nav">
 			<i class="material-icons">menu</i></a>
 		  <ul id="nav-mobile" class="right hide-on-med-and-down">
-		    <li><a href="./Registros">Usuarios Registrados</a></li>
-		    <li><a href="./AdminVig">Administrar vigilantes</a></li>
-		    <li><a href="./Fraccionamientos">Fraccionamientos</a></li>
+		    <li><a href="./AdminVig">Mi auto</a></li>
+		    <li><a href="./Fraccionamientos">Modificar Datos</a></li>
 		  	<li><a class="#"><i class="material-icons">account_circle</i></a></li>
 		  	<li><a href="./Salir">Salir</a></li>
 		  </ul>
@@ -32,13 +31,24 @@
 	      <a class="#"><i class="material-icons">account_circle</i></a>
 	      <a><span class="white-text email"><%= user %></span></a>
     	</div></li>
-	    <li><a href="./Registros">Usuarios Registrados</a></li>
-	    <li><a href="./AdminVig">Administrar vigilantes</a></li>
-	    <li><a href="./Fraccionamientos">Fraccionamientos</a></li>
+	    <li><a href="./AdminVig">Mi auto</a></li>
+	    <li><a href="./Fraccionamientos">Modificar Datos</a></li>
 		<li><a href="./Salir">Salir</a></li>
 	</ul>
 	</header>
-	<h1>Holi amiguito</h1>
+	<div class="card-panel">
+		<p class="flow-text">Mis datos</p>
+		<div class="card-panel">
+			<p>Correo: <%= Habitante.nom_usu%></p><br>
+			<p>Nombre: <%= Habitante.cor_usu%></p><br>
+			<p>Placas: <%= Habitante.let_hab%></p><br>
+			<% if(Habitante.est_car.data == 0){ %>
+			<p class="col s6 red">Afuera</p>
+			<% }else{ %>
+				<p class="col s6 green">Adentro</p>
+			<% } %>
+		</div>
+	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="../javascripts/AJAX.js"></script>

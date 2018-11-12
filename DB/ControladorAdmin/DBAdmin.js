@@ -1,6 +1,6 @@
-var mysql = require('mysql'); 
+var mysql = require('mysql');
 var DBVal = require('./DBAdminRegex.js');
-const cipher = require('/Floppy/routes/cipher.js');
+const cipher = require('../../routes/cipher.js');
 const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
@@ -13,17 +13,17 @@ var con = mysql.createConnection({
 con.connect(function(error){
    if(error){
       throw error;
-   }else{ 
+   }else{
       console.log('Conexion correcta.');
    }
 });
 var funciones = {
-  Iniciar: admin =>{ 
+  Iniciar: admin =>{
     return new Promise((resolve, reject) => {
       con.query('SELECT *FROM ADMIN WHERE cor_adm=? ', [admin.cor], (err, result) => {
       if (err)
         throw err;
-      if (result.length == 0) 
+      if (result.length == 0)
         return resolve({"response":0});
       return resolve({"response":1 , "nombre":result[0].nom_adm})
       });
@@ -33,7 +33,7 @@ var funciones = {
     return new Promise ((resolve, reject)=>{
       DBVal.ExisteFrac(frac.dir).then(Fraccionamiento =>{
         console.log("Esto esta pasando " + Fraccionamiento);
-        if (Fraccionamiento != 0) 
+        if (Fraccionamiento != 0)
           return resolve(Fraccionamiento);
         con.query('INSERT INTO FRACCIONAMIENTO(dir_fra, cap_fra,cla_fra) VALUES(?,?,?)',[frac.dir, frac.cap, cipher.cifrar(frac.dir)], function(error, result){
           if (error)
@@ -46,10 +46,10 @@ var funciones = {
   InsertarVig: vig =>{
     return new Promise ((resolve, reject)=>{
       DBVal.ExisteVig(vig.cor).then(Vigilante =>{
-        if (Vigilante != 0) 
+        if (Vigilante != 0)
           return resolve(Vigilante);
         con.query('INSERT INTO VIGILANTE(nom_vig,pas_vig,cor_vig,dir_vig,tel_vig) VALUES (?,?,?,?,?)',[vig.nom, cipher.cifrar(vig.pas), vig.cor, vig.dir, cipher.cifrar(vig.tel)], function(error, result){
-          if (error)    
+          if (error)
             throw error;
           return resolve(1);
           });
@@ -71,7 +71,7 @@ var funciones = {
         if (error)
           throw error;
         if (result.length == 0)
-          return resolve("No hay ningun fraccionamiento registrado"); 
+          return resolve("No hay ningun fraccionamiento registrado");
         return resolve(result);
         });
     });
@@ -82,7 +82,7 @@ var funciones = {
         if (error)
           throw error;
         if (result.length < 1)
-          return resolve("No hay ningun fraccionamiento registrado"); 
+          return resolve("No hay ningun fraccionamiento registrado");
         return resolve(result);
         });
     });
@@ -93,14 +93,61 @@ var funciones = {
         if (error)
           throw error;
         if (result.length ==0 )
-          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"}); 
+          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"});
         DBVal.TodosHabitantes(result[0].id_fra).then(habitantes =>{
-          if (habitantes.estado)
-            return resolve(habitantes.mensaje) 
-          return resolve(habitantes);    
+          if (habitantes.estado == 1)
+            return resolve({estado: 1, resultado: habitantes.mensaje})
+          return resolve({estado: 0, resultado: habitantes.mensaje});
         });
         });
     });
-  }    
-} 
+  },
+  ModificarNombreVigilante: vigilante =>{
+    console.log("Esta madrola");
+    return new Promise ((resolve, reject)=>{
+       con.query('UPDATE VIGILANTE SET nom_vig = ? WHERE dir_vig = ?',[vigilante,vigilante.fra] ,function(error, result){
+        console.log("si esta entrando a la funcion");
+        if (error)
+          throw error;
+        if (result.length == 0)
+          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"});
+        return resolve("otra madrola");
+        });
+    });
+  },
+  ModificarCorreoVigilante: vigilante =>{
+    return new Promise ((resolve, reject)=>{
+       con.query('UPDATE VIGILANTE SET cor_vig = ? WHERE dir_vig = ?',[vigilante,vigilante.fra] ,function(error, result){
+        console.log("si esta entrando a la funcion");
+        if (error)
+          throw error;
+        if (result.length == 0)
+          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"});
+        return resolve("otra madrola");
+        });
+    });
+  },
+  ModificarContraseñaVigilante: vigilante =>{
+    return new Promise ((resolve, reject)=>{
+       con.query('UPDATE VIGILANTE SET pas_vig =? WHERE dir_vig = ?',[vigilante,vigilante.fra] ,function(error, result){
+        console.log("si esta entrando a la funcion");
+        if (error)
+          throw error;
+        if (result.length == 0)
+          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"});
+        return resolve("otra madrola");
+        });
+    });
+  },
+  EliminarFrac: Frac=>{
+    return new Promise ((resolve, reject)=>{
+      con.query('DELATE *FROM FRACCIONAMIENTO WHERE dir_fra = ?',[Fraccion.nom] ,function(error, result){
+        if (error)
+          throw error;
+        if (result.length == 0)
+          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"});
+        });
+    });
+  }
+}
 module.exports = funciones;

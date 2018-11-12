@@ -1,11 +1,12 @@
-USE Floppy;
+USE Floppy
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS InsertIdVig;
-DROP PROCEDURE IF EXISTS ConsultarVigyFrac;
-DROP PROCEDURE IF EXISTS TransaFrac;
-DROP PROCEDURE IF EXISTS TransaUser;
-DROP PROCEDURE IF EXISTS ConsultarVig;
+DROP PROCEDURE IF EXISTS InsertIdVig$$
+DROP PROCEDURE IF EXISTS ConsultarVigyFrac$$
+DROP PROCEDURE IF EXISTS TransaFrac$$
+DROP PROCEDURE IF EXISTS TransaUser$$
+DROP PROCEDURE IF EXISTS ConsultarVig$$
+DROP FUNCTION IF EXISTS ModifiVig$$
 
 CREATE PROCEDURE ConsultarVig(IN Correo VARCHAR(100))
     BEGIN
@@ -27,11 +28,11 @@ CREATE PROCEDURE TransaFrac(IN Direccion VARCHAR(100), Capacidad INT, Clave TEXT
 			UPDATE FRACCIONAMIENTO INNER JOIN VIGILANTE ON (VIGILANTE.dir_vig = FRACCIONAMIENTO.dir_fra) SET FRACCIONAMIENTO.id_vig = VIGILANTE.id_vig WHERE dir_fra = VIGILANTE.dir_vig;	
 		COMMIT;
 	END$$
-CREATE PROCEDURE TransaUser(IN Nombre VARCHAR(100), Password TEXT, Letras VARCHAR(100), Fraccionamiento INT) 
+CREATE PROCEDURE TransaUser(IN Nombre VARCHAR(100), Correo VARCHAR(100),Password TEXT, Letras VARCHAR(100), Fraccionamiento INT, Marca VARCHAR(100)) 
 	BEGIN
 		START TRANSACTION;
-			INSERT INTO HABITANTE(nom_usu, pas_usu, let_hab, id_fra) VALUES(Nombre, Password, Letras, Fraccionamiento);
-			INSERT INTO CAR(let_car, ) VALUES (Letras);
+			INSERT INTO HABITANTE(nom_usu, cor_usu ,pas_usu, let_hab, id_fra) VALUES(Nombre, Correo, Password, Letras, Fraccionamiento);
+			INSERT INTO CAR(let_car,mar_car) VALUES (Letras, Marca);
 			UPDATE HABITANTE INNER JOIN CAR ON (HABITANTE.let_hab = CAR.let_car) SET HABITANTE.id_car = CAR.id_car WHERE HABITANTE.let_hab = CAR.let_car;	
 		COMMIT;
 	END$$

@@ -18,7 +18,6 @@ router.use(session(
 	}
 }));
 //Cambiar la ruta de estas madrolas para que las sesiones no tengan problemas entre si
-
 //Rutas post enviar formularios y cosas asi chidas
 router.get('/', function(req, res, next) {
 	res.sendFile("InicioSesionVig.html", {root: path.join(__dirname, "../public/html")});
@@ -45,17 +44,42 @@ router.post('/Enviar', function(req, res){
 	});
 });
 
+
+router.post('/ModificarHab', function(req, res){
+	if(!req.session.nombreVig)
+		return res.send("Primero tienes que iniciar sesion");
+	console.log("Esto es esto" + JSON.stringify(req.body));
+	validado = val.ValModifiHab(req.body);
+	if (validado != 0)
+		return res.send(validado);
+	if (req.body.con.length != 0){
+		DBVig.ModificarContraseñaHab(req.body);
+	}
+	if (req.body.nom.length != 0){
+		DBVig.ModificarNombreHab(req.body)
+	}
+	return res.send("Sus datos se han modificado con exito");
+});
+
 //Rutas get
 router.get('/Usuarios', function(req, res) {
 	if(!req.session.nombreVig)
 		return res.send("Primero tienes que iniciar sesion");
-	return res.render("VistasVig/RegUsu", {user: req.session.nombreVig});	
+	DBVig.ConsultarFrac(req.session.nombreVig).then(cosa =>{
+		if (cosa == 'No hay habitantes en este fraccionamiento')
+			return res.render("VistasVig/ModifiHab", {user: req.session.nombreVig, Fraccionamiento:''});
+		console.log("Esto esta pasando " + JSON.stringify(cosa));
+
+		return res.render("VistasVig/ModifiHab", {user: req.session.nombreVig, Fraccionamiento:cosa});	
+	});	
 });
 
 router.get('/Fraccionamiento', function(req, res) {
 	if(!req.session.nombreVig)
 		return res.send("Primero tienes que iniciar sesion");
 	DBVig.ConsultarFrac(req.session.nombreVig).then(cosa =>{
+		if (cosa == 'No hay habitantes en este fraccionamiento')
+			return res.render("VistasVig/EstadoFrac", {user: req.session.nombreVig, Fraccionamiento:''});	
 		console.log("Esto esta pasando " + JSON.stringify(cosa));
 		return res.render("VistasVig/EstadoFrac", {user: req.session.nombreVig, Fraccionamiento:cosa});
 	});		
@@ -69,7 +93,7 @@ router.get('/EnviarClave', function(req, res) {
 
 router.get('/Salir', function(req, res) {
 	req.session.nombreVig = null;
-	res.redirect('./');	
+	res.redirect('/');	
 });
 
 module.exports = router;

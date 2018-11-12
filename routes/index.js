@@ -19,7 +19,7 @@ router.get('/RegistroUsuario', function(req, res) {
 
 router.post('/Registrate' , function(req, res) {
 	console.log(JSON.stringify(req.body));
-	validado = regex.ValUser(req.body);
+	validado = regex.ValUserRegistro(req.body);
 	if (validado != 0)
 		return res.send(validado);
 	DBUser.Registrar(req.body).then(registro =>{
