@@ -3,11 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-	
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
-const mariaRouter = require("./routes/maria");
+var vigRouter = require('./routes/vigilante');
+var mariaRouter = require('./routes/maria');
 
 var app = express();
 
@@ -25,15 +26,23 @@ app.use(express.static('./public/views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/css", express.static(__dirname+"/public/css"));
+app.use("/Floppy", express.static(__dirname+"/Floppy"));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
-app.use("/maria", mariaRouter);
-
+app.use('/vig', vigRouter);
+app.use('/maria', mariaRouter);
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+
+/*app.use(function(req, res, next) {
   next(createError(404));
+});*/
+
+app.use(function(req, res, next) {
+	if(res.status(404)){
+		res.sendFile("404.html", {root: path.join(__dirname, "./public/html")});
+	}
 });
 
 // error handler

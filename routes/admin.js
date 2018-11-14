@@ -29,7 +29,6 @@ router.post('/Iniciar', function(req,res) {
 	validado = val.ValAdm(req.body);
 	if (validado != 0)
 		return res.json({estado:1, mensaje:validado});
-	console.log("Esto es esto "+ req.body);
 	DB.Iniciar(req.body).then(succes=>{
 		if (succes.response != 1)
 			return res.json({estado:1,mensaje: "Contraseña o usuario incorrecto"});
@@ -41,9 +40,8 @@ router.post('/Iniciar', function(req,res) {
 });
 
 router.post('/RegistrarVigFrac', function(req,res) {
-	if(!req.session.nombre)
-		return res.send("Primero tienes que iniciar sesion");
-	console.log("La madrola "+ JSON.stringify(req.body));
+	//if(!req.session.nombre)
+		//return res.send("Primero tienes que iniciar sesion");
 	validado = val.ValRegistroVigYFrec(req.body);
 	if (validado != 0)
 		return res.send(validado);
@@ -73,7 +71,7 @@ router.post('/EstadoFrac', function(req,res) {
 router.post('/ModiVigil', function(req, res){
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
-	console.log("El req body " + req.body.nom.length);
+	/*console.log("El req body " + req.body.nom.length);
 	validado = val.ValModifiVig(req.body);
 	if (validado != 0 ) 
 		return res.send(validado);

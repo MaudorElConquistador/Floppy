@@ -9,13 +9,16 @@ var regex = {
 	ValRegistroVigYFrec: vig => {
 		let regexNombre = /^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/;
 		let regex = /^[a-zàèìòùñA-ZÀÈÌÒÙÑ0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
+		let regexNumber =/^[0-9]+$/;
 		if (vig.nom.length == 0 || vig.pas.length == 0 || vig.cor.length == 0 || vig.tel.length == 0 || vig.dir.length == 0 || vig.cap.length == 0 ) 
 			return "Tiene que llenar todos los campos";
 		if (!regex.test(vig.cor))
 			return "Cumple con el fromato establecido del correo electronico";
-		if (isNaN(vig.tel) || vig.tel.length < 8 || vig.tel.length > 8 )
-			return "Ingresa un número telefonico valido de 8 números";
-		if (vig.cap.length > 10 ) 
+		if (!regexNumber.test(vig.tel) || vig.tel.length < 8 || vig.tel.length > 8 )
+			return "Ingresa un número telefonico valido de 8 números"; 
+		if (!regexNombre.test(vig.nom))
+			return "Ingresa un nombre valido"; 
+		if (parseInt(vig.cap) > 10 ) 
 			return "La capacidad del fraccionamiento no tiene que superar la cantidad de 10 vehiculos, ni ser cantidades negativas";
 		return 0;
 	},

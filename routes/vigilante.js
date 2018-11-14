@@ -80,7 +80,7 @@ router.get('/Fraccionamiento', function(req, res) {
 	DBVig.ConsultarFrac(req.session.nombreVig).then(cosa =>{
 		if (cosa == 'No hay habitantes en este fraccionamiento')
 			return res.render("VistasVig/EstadoFrac", {user: req.session.nombreVig, Fraccionamiento:''});	
-		console.log("Esto esta pasando " + JSON.stringify(cosa));
+		console.log("Esto esta pasando " + JSON.stringify(cosa[1].est_car[0]));
 		return res.render("VistasVig/EstadoFrac", {user: req.session.nombreVig, Fraccionamiento:cosa});
 	});		
 });
