@@ -9,8 +9,8 @@ router.post(/^\/recognize-plate/, (req, res) => {
 
     DB.ConsultaPlaca(plate).then(estado=>{
     	if (estado != 0)
-    		return res.send("No se encontro la placa")//Cambiar por cero y uno para identificar cuando mover el servo
-    	return res.send("Ya esta jefe ahorita le abro");
+    		return res.send(false)//Cambiar por cero y uno para identificar cuando mover el servo
+    	return res.send(true);
     });
 });
 

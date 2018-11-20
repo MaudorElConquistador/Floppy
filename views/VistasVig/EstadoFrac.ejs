@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header class="row"><div>
-		<nav class="yellow darken-2">
+		<nav class="blue darken-2">
 			<div class="nav-wrapper">
 				<a href="#" class="brand-logo">Floppy</a>
 				<a href="#" class="sidenav-trigger" data-target="mobile-nav">
@@ -54,14 +54,15 @@
 					<tr>
 						<td class="waves-effect waves-light modal-trigger hoverable" href="#modal <%= fraccionamiento.nom_usu%>"><%= fraccionamiento.nom_usu%></td>
 						<div id="modal <%= fraccionamiento.nom_usu%>" class="modal modal-fixed-footer">
-							<div class="modal-content col s12 blue-grey darken-2">
-								<p class="flow-text" align="center">Información del habitante</p class="flow-text">
+							<div class="modal-content col s12 ">
+							    <img class="responsive-img col s12" src="/images/LoginVig.jpeg">
+								<strong><p class="flow-text" align="center">Información del habitante</p class="flow-text"></strong>
 								<p>Nombre del Habitante: <%= fraccionamiento.nom_usu %></p>
 								<p>Correo del habitante: <%= fraccionamiento.cor_usu %></p>
 								<p>Marca del Auto: <%= fraccionamiento.mar_car %></p>
 								<p>Caracteres de la matricula: <%= fraccionamiento.let_hab %></p>
 							</div>
-								<div class="modal-footer blue-grey darken-1">
+								<div class="modal-footer ">
 								<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
 							</div>
 						</div>

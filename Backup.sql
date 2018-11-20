@@ -18,7 +18,9 @@
 --
 -- Table structure for table `admin`
 --
-
+DROP DATABASE IF EXISTS Floppy;
+CREATE DATABASE Floppy DEFAULT CHARACTER SET utf8;
+USE Floppy;
 DROP TABLE IF EXISTS `admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

@@ -62,9 +62,10 @@ var funciones = {
       con.query('SELECT *FROM HABITANTE WHERE let_hab = ?', [placa] ,function(error, result){
         if (error)
           throw error;
+        console.log("la longitud del resultado " + result.length)
         if (result.length == 0)
           return resolve(1);
-        return 0;  
+        return resolve(0);  
       });
     });
   },
@@ -80,7 +81,7 @@ var funciones = {
         });
     });
   },
-  ModificarContraseñaHab: Habitante =>{
+  ModificarMatriculaHab: Habitante =>{
     return new Promise ((resolve, reject)=>{
        con.query('UPDATE Habitante SET pas_usu = ? WHERE cor_usu = ?',[cipher.cifrar(Habitante.con),Habitante.que] ,function(error, result){
         if (error)

@@ -3,7 +3,10 @@
  * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
-.transicion-1:focus{
+.transicion-1{
+  transition: all 500ms ease; 
+}
+.transicion-1:hover{
   background: #ECF0F1;
   transition: all 500ms ease; 
 }

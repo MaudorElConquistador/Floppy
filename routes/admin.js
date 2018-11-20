@@ -40,8 +40,8 @@ router.post('/Iniciar', function(req,res) {
 });
 
 router.post('/RegistrarVigFrac', function(req,res) {
-	//if(!req.session.nombre)
-		//return res.send("Primero tienes que iniciar sesion");
+	if(!req.session.nombre)
+		return res.send("Primero tienes que iniciar sesion");
 	validado = val.ValRegistroVigYFrec(req.body);
 	if (validado != 0)
 		return res.send(validado);
@@ -59,8 +59,8 @@ router.post('/RegistrarVigFrac', function(req,res) {
 });
 
 router.post('/EstadoFrac', function(req,res) {
-	//if(!req.session.nombre)
-	//	return res.send("Primero tienes que iniciar sesion");
+	if(!req.session.nombre)
+		return res.send("Primero tienes que iniciar sesion");
 	DB.ConsultarFrac2(req.body).then(Fraccionamientos =>{
 		if (Fraccionamientos.estado == 1)
 			return res.json({estad:1 ,mensaje:Fraccionamientos.resultado});
@@ -71,27 +71,6 @@ router.post('/EstadoFrac', function(req,res) {
 router.post('/ModiVigil', function(req, res){
 	if(!req.session.nombre)
 		return res.send("Primero tienes que iniciar sesion");
-	/*console.log("El req body " + req.body.nom.length);
-	validado = val.ValModifiVig(req.body);
-	if (validado != 0 ) 
-		return res.send(validado);
-	
-	if (req.body.nom.length != 0 ){
-		console.log("Que eesta pasando");w
-	} 
-	if (req.body.nom.length !=0 ){
-		DB.ModificarNombreVigilante(req.body).then(succes=>{
-			
-		});
-	} 
-	/*if (req.body.pas.length !=0){
-		DB.ModificarContraseñaVigilante(req.body).then(cosa =>{
-		});
-	}
-	if (req.body.cor.length !=0){
-		DB.ModificarCorreoVigilante(req.body).then(esto=>{
-		});
-	} */
 });
 
 /*Rutas get para cambiar de página*/

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<header class="row"><div>
-	<nav class="yellow darken-2">
+	<nav class="blue darken-2">
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo">Floppy</a>
 			<a href="#" class="sidenav-trigger" data-target="mobile-nav">
@@ -46,15 +46,17 @@
 		<blockquote>Estado de los usuarios en el fraccionamiento</blockquote>
 		<% if(Fraccionamiento != 'No hay ningun fraccionamiento registrado') { %>
 		<div class="row">
-			<div class="input-field col s6">
-				<select class = "browser-default" onchange="ConsultarFrac(this.value)">
-					<% Fraccionamiento.forEach(function(Fraccionamiento){ %>
-						<option id="Fraccionamiento"><%= Fraccionamiento.dir_fra%></option>
-					<% }); %>
-				</select>	
-			</div><br>
+			<div class="container">
+				<div class="input-field col s6">
+					<select class = "browser-default" onchange="ConsultarFrac(this.value)">
+						<% Fraccionamiento.forEach(function(Fraccionamiento){ %>
+							<option id="Fraccionamiento"><%= Fraccionamiento.dir_fra%></option>
+						<% }); %>
+					</select>	
+				</div><br>
+			</div>
 		</div>
-		<div class="col s7" id="Consultas"></div>
+		<div id="Consultas"></div>
 		<% }else{ %>
 			<div>No hay fraccionamientos registrados</div>
 		<% } %>

@@ -37,7 +37,7 @@ router.post('/Ingresar', function(req, res) {
 
 router.post('/Enviar', function(req, res){
 	if(!req.session.nombreVig)
-		return res.send("Primero tienes que iniciar sesion");
+		return res.send("Primero tienes que iniciar sesión");
 	DBVig.ConsultarContraseña(req.session.nombreVig).then(clave =>{
 		email.enviar(req.body, clave[0].cla_fra);
 		res.send("Ya se envio la clave");
@@ -45,26 +45,39 @@ router.post('/Enviar', function(req, res){
 });
 
 
-router.post('/ModificarHab', function(req, res){
+//Modificaciones del habitante
+router.post('/ModNomHab', function(req, res){
 	if(!req.session.nombreVig)
-		return res.send("Primero tienes que iniciar sesion");
-	console.log("Esto es esto" + JSON.stringify(req.body));
-	validado = val.ValModifiHab(req.body);
+		return res.send("Primero tienes que iniciar sesión");
+	validado = val.ValModHabNom(req.body);
 	if (validado != 0)
-		return res.send(validado);
-	if (req.body.con.length != 0){
-		DBVig.ModificarContraseñaHab(req.body);
-	}
-	if (req.body.nom.length != 0){
-		DBVig.ModificarNombreHab(req.body)
-	}
-	return res.send("Sus datos se han modificado con exito");
+		return res.send(validado)
+	return res.send("Sus datos se han modificado con éxito");
+});
+
+router.post('/ModMatHab', function (req, res) {
+	if (!req.session.nombreVig)
+		return res.send("Primero tienes que iniciar sesión"); 
+	validado = val.ValModHabMat(req.body);
+	if (validado != 0)
+		return res.send(validado)
+	//DBVig.
+	return res.send("Sus datos se han modificado con éxito");
+});
+
+router.post('/ModMarHab', function (req, res) {
+	if (!req.session.nombreVig)
+		return res.send("Primero tienes que iniciar sesión"); 
+	validado = val.ValModHabMar(req.body);
+	if (validado != 0)
+		return res.send(validado)
+	return res.send("Sus datos se han modificado con éxito");	
 });
 
 //Rutas get
 router.get('/Usuarios', function(req, res) {
 	if(!req.session.nombreVig)
-		return res.send("Primero tienes que iniciar sesion");
+		return res.send("Primero tienes que iniciar sesión");
 	DBVig.ConsultarFrac(req.session.nombreVig).then(cosa =>{
 		if (cosa == 'No hay habitantes en este fraccionamiento')
 			return res.render("VistasVig/ModifiHab", {user: req.session.nombreVig, Fraccionamiento:''});
@@ -76,7 +89,7 @@ router.get('/Usuarios', function(req, res) {
 
 router.get('/Fraccionamiento', function(req, res) {
 	if(!req.session.nombreVig)
-		return res.send("Primero tienes que iniciar sesion");
+		return res.send("Primero tienes que iniciar sesión");
 	DBVig.ConsultarFrac(req.session.nombreVig).then(cosa =>{
 		if (cosa == 'No hay habitantes en este fraccionamiento')
 			return res.render("VistasVig/EstadoFrac", {user: req.session.nombreVig, Fraccionamiento:''});	
@@ -87,7 +100,7 @@ router.get('/Fraccionamiento', function(req, res) {
 
 router.get('/EnviarClave', function(req, res) {
 	if(!req.session.nombreVig)
-		return res.send("Primero tienes que iniciar sesion");
+		return res.send("Primero tienes que iniciar sesión");
 	return res.render("VistasVig/RegUsu", {user: req.session.nombreVig});	
 });
 

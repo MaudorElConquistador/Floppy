@@ -11,7 +11,7 @@
 </head>
 <body>
 	<header class="row"><div>
-	<nav class="yellow darken-2">
+	<nav class="blue darken-2">
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo">Floppy</a>
 			<a href="#" class="sidenav-trigger" data-target="mobile-nav">
@@ -44,26 +44,69 @@
 	<div class=" col s12">
 		<p class="flow-text">Usuarios de automoviles registrados</p>
 		<blockquote>Consulta de vigilantes</blockquote>
-        <table class="striped responsive-table">
-          <thead>
-            <tr>
-              <th>Vigilante</th>
-              <th>Fraccionamiento</th>
-            </tr>
-          </thead>
-			<tbody>
-				<% Consulta.forEach(function(Consulta){ %>
-					<tr>
-						<th>
-							<%= Consulta.nom_vig%>
-						</th>
-						<th>
-							<%= Consulta.dir_fra%>
-						</th>
-					</tr>
-				<% }); %>
-			</tbody>
-        </table>
+	<table class="striped responsive-table col s8">
+		<thead>
+		<tr>
+			<td>Habitante</td>
+			<td>Modificar</td>
+		</tr>
+		</thead>
+		<tbody>
+		    <%Consulta.forEach(function(Consulta){ %>
+			<tr>
+			<td ><%= Consulta.nom_vig%></td>
+			<div id="modal <%= Consulta.nom_vig%>" class="modal modal-fixed-footer">
+				<div class="modal-content row ">
+				<p class="flow-text" align="center">Modificar información del habitante</p class="flow-text">
+				<p>Habitante a modificar:</p><input type="text" readonly="readonly" value="<%= Consulta.cor_vig%>">
+				<ul class="collapsible">
+				<li>
+				<div class="collapsible-header"><i class="material-icons">create</i>Nombre</div>
+			<div class="collapsible-body" >
+				<form class="col s10" id="1">
+					<div class="input-field col s5">
+					<label class="activate" for="nombre">Nombre del habitante</label>
+					<input type="text" name="nombre" id="nombre">
+					</div><br>
+					<input class = "btn waves-effect waves-green" type="button" value="Cambiar">
+				</form><br>
+			</div>
+			</li>
+			<li>
+			<div class="collapsible-header"><i class="material-icons">create</i>Matricula del auto</div>
+			<div class="collapsible-body">
+				<form class="col s10" id="2">
+					<div class="input-field col s5">
+					<label class="activate" for="matricula">Matricula del auto</label>
+					<input type="text" name="matricula" id="matricula">
+					</div><br>
+					<input class = "btn waves-effect waves-green" type="button" value="Cambiar">		
+				</form><br>
+			</div>
+			</li>
+			<li>
+			<div class="collapsible-header"><i class="material-icons">create</i>Marca del auto</div>
+			<div class="collapsible-body">
+				<form class="col s10" id="3">
+				<div class="input-field col s5">
+				<label class="activate" for="marca">Marca del auto</label>
+				<input type="text" name="marca" id="marca">
+				</div><br>
+				<input class = "btn waves-effect waves-green" type="button" value="Cambiar" >		
+				</form><br>
+			</div>
+			</li>
+			</ul>
+			</div>
+				<div class="modal-footer ">
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat">De acuerdo</a>
+				</div>
+			</div>
+			<td class ="waves-effect waves-green modal-trigger hoverable" href="#modal <%= Consulta.nom_vig%>">Modificar Usuario</td>
+			</tr>
+			<% });%>
+		</tbody>	
+	</table>
 	</div>
 	</main>
   

@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header class="row"><div>
-	<nav class="yellow darken-2">
+	<nav class="blue darken-2">
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo">Floppy</a>
 			<a href="#" class="sidenav-trigger" data-target="mobile-nav">
@@ -36,19 +36,19 @@
 		<li><a href="./Salir">Salir</a></li>
 	</ul>
 	</header>
-	<div class="card-panel">
-		<p class="flow-text">Mis datos</p>
+	<main class="container">
 		<div class="card-panel">
+    	<strong><span class="flow-text col 12" align="center">Mis datos</span></strong>
 			<p>Correo: <%= Habitante.nom_usu%></p><br>
 			<p>Nombre: <%= Habitante.cor_usu%></p><br>
 			<p>Placas: <%= Habitante.let_hab%></p><br>
 			<% if(Habitante.est_car.data == 0){ %>
-			<p class="col s6 red">Afuera</p>
+			<p class="card-panel col s6 red">Afuera</p>
 			<% }else{ %>
-				<p class="col s6 green">Adentro</p>
+				<p class="card-panel col s6 green">Adentro</p>
 			<% } %>
-		</div>
 	</div>
+	</main>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="../javascripts/AJAX.js"></script>

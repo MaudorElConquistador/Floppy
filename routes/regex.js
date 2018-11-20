@@ -1,3 +1,7 @@
+var regexNombre = /^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/;
+var regexCor = /^[a-zàèìòùñA-ZÀÈÌÒÙÑ0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
+var regexNumber =/^[0-9]+$/;
+var regexPlaca = /^([A-Z]{3})+([0-9]{3,4})$/;
 var regex = {
 	ValAdm: adm =>{
 		if (adm.cor.length <= 3 || adm.con.length <=3) 
@@ -7,17 +11,16 @@ var regex = {
 		return 0;
 	},
 	ValRegistroVigYFrec: vig => {
-		let regexNombre = /^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/;
-		let regex = /^[a-zàèìòùñA-ZÀÈÌÒÙÑ0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
-		let regexNumber =/^[0-9]+$/;
 		if (vig.nom.length == 0 || vig.pas.length == 0 || vig.cor.length == 0 || vig.tel.length == 0 || vig.dir.length == 0 || vig.cap.length == 0 ) 
 			return "Tiene que llenar todos los campos";
-		if (!regex.test(vig.cor))
+		if (!regexCor.test(vig.cor))
 			return "Cumple con el fromato establecido del correo electronico";
 		if (!regexNumber.test(vig.tel) || vig.tel.length < 8 || vig.tel.length > 8 )
 			return "Ingresa un número telefonico valido de 8 números"; 
 		if (!regexNombre.test(vig.nom))
 			return "Ingresa un nombre valido"; 
+		if (!regexNumber.test(vig.cap))
+			return "ingresa un numero valido";
 		if (parseInt(vig.cap) > 10 ) 
 			return "La capacidad del fraccionamiento no tiene que superar la cantidad de 10 vehiculos, ni ser cantidades negativas";
 		return 0;
@@ -33,28 +36,12 @@ var regex = {
 			return "Ingresa todos los datos";
 		return 0;
 	},
-	ValModifiHab: hab => {
-		let regexNombre = /^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/;
-		let regexPlaca = /^([A-Z]{3})+([0-9]{3,4})$/;
-		if (hab.nom.length == 0 && hab.con.length  == 0) 
-			return "Tienes que llenas por lo menos un campo";
-		if (hab.nom.length > 99 || hab.con.length > 99 ) 
-			return "Los campos no pueden sobrepasar los 99 caracteres";
-		/*if (hab.pla.length > 7 || hab.pla.length < 6 ) 
-			return "Las placas de la CDMX tienen que cumplir con el siguiente formato AAA-999 o AAA-9999";
-		if (!regexPlaca.test(hab.pla)) 
-			return "Las placas de la CDMX tienen que cumplir con el siguiente formato AAA-999 o AAA-9999";*/
-		return 0;
-	},
 	ValUserRegistro: user =>{
-		let regexNombre = /^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$/;
-		let regex = /^[a-zàèìòùñA-ZÀÈÌÒÙÑ0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
-		let regexPlaca = /^([A-Z]{3})+([0-9]{3,4})$/;
 		if (user.cla.length == 0 ||  user.fra.length == 0 || user.nom.length == 0 || user.con.length == 0 || user.pla.length == 0 || user.cor.length == 0 || user.mar.length == 0 ) 
 			return "Tiene que llenar todos los campos";
 		if (user.cla.length > 99 ||  user.fra.length > 99 || user.nom.length > 99 || user.con.length == 99 || user.pla.length == 0 || user.cor.length == 0 || user.mar.length == 0 ) 
 			return "Los campos no pueden sobrepasar los 99 caracteres";
-		if (!regex.test(user.cor)) 
+		if (!regexCor.test(user.cor)) 
 			return "Cumple con el fromato establecido del correo electronico";
 		if (!regexNombre.test(user.nom))
 			return "Escribe un nombre valido";
@@ -69,6 +56,23 @@ var regex = {
 	ValUserLogin: user =>{
 		if (user.nom.length ==0 || user.con.length ==0) 
 			return "Llena todos los campos por fa";
+		return 0;
+	},
+	ValModHabNom: user =>{
+		if (!regexNombre.test(user.nom))
+			return "Escribe un nombre valido";
+		return 0;
+	},
+	ValModHabMar: user =>{
+		if (!regexNombre.test(user.nom))
+			return "Escribe una marca de auto valido";
+		return 0;
+	},
+	ValModHabMat: user =>{
+		if (!regexPlaca.test(user.mat))
+			return "Las placas de la CDMX tienen que cumplir con el siguiente formato AAA-999 o AAA-9999";
+		if (user.mat.length > 7 || user.mat.length < 6 ) 
+			return "Las placas de la CDMX tienen que cumplir con el siguiente formato AAA-999 o AAA-9999";
 		return 0;
 	}
 }
