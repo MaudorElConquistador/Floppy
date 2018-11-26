@@ -19,7 +19,7 @@
     <session id="235354996">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="7" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.2" value="1" />
@@ -65,7 +65,7 @@
           <entry key="css" value="211" />
           <entry key="ejs" value="111" />
           <entry key="html" value="262" />
-          <entry key="js" value="4389" />
+          <entry key="js" value="4390" />
           <entry key="json" value="172" />
           <entry key="md" value="421" />
           <entry key="py" value="1166" />
@@ -79,7 +79,7 @@
           <entry key="EJS" value="111" />
           <entry key="HTML" value="262" />
           <entry key="JSON" value="172" />
-          <entry key="JavaScript" value="4394" />
+          <entry key="JavaScript" value="4395" />
           <entry key="Markdown" value="421" />
           <entry key="Python" value="1166" />
           <entry key="SQL" value="274" />
@@ -133,8 +133,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/video_streaming.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="3" column="32" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
+            <state relative-caret-position="56">
+              <caret line="2" column="42" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -142,8 +142,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/video_stream.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="6" column="54" selection-start-line="6" selection-start-column="54" selection-end-line="6" selection-end-column="54" />
+            <state relative-caret-position="56">
+              <caret line="2" column="51" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -202,8 +202,8 @@
         <option value="$PROJECT_DIR$/routes/envia.js" />
         <option value="$PROJECT_DIR$/DB/ControladorAdmin/ProceduresAdmin.sql" />
         <option value="$PROJECT_DIR$/DB/ControladorUser/DBUser.js" />
-        <option value="$PROJECT_DIR$/video_streaming.js" />
         <option value="$PROJECT_DIR$/public/javascripts/video_stream.js" />
+        <option value="$PROJECT_DIR$/video_streaming.js" />
       </list>
     </option>
   </component>
@@ -214,9 +214,6 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
@@ -289,16 +286,15 @@
       <workItem from="1543134381653" duration="61000" />
       <workItem from="1543134494534" duration="5459000" />
       <workItem from="1543174294683" duration="273000" />
-      <workItem from="1543190464165" duration="13688000" />
+      <workItem from="1543190464165" duration="14457000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21612000" />
+    <option name="totallyTimeSpent" value="22381000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-2" width="1366" height="770" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -537,15 +533,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/video_stream.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="6" column="54" selection-start-line="6" selection-start-column="54" selection-end-line="6" selection-end-column="54" />
+        <state relative-caret-position="56">
+          <caret line="2" column="51" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/video_streaming.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="3" column="32" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
+        <state relative-caret-position="56">
+          <caret line="2" column="42" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
         </state>
       </provider>
     </entry>
