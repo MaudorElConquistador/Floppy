@@ -2,6 +2,10 @@ DROP DATABASE IF EXISTS Floppy;
 CREATE DATABASE Floppy DEFAULT CHARACTER SET utf8;
 USE Floppy;
 
+CREATE USER floppy_admin@'localhost' IDENTIFIED BY 'n0m3l0';
+REVOKE ALL PRIVILEGES ON *.* FROM floppy_admin@'localhost';
+GRANT ALL PRIVILEGES ON Floppy.* TO floppy_admin@'localhost';
+
 CREATE TABLE ADMIN(
 	id_adm MEDIUMINT AUTO_INCREMENT,
 	nom_adm VARCHAR(100) NOT NULL,

@@ -12,15 +12,15 @@ router.get('/', function(req, res, next) {
 
 router.get('/RegistroUsuario', function(req, res) {
 	DB.ConsultarFrac().then(Fraccionamientos =>{ 
-		console.log("Fraccionamientos :: " + Fraccionamientos)
+		console.log("Fraccionamientos :: " + Fraccionamientos);
 		return res.render("Registrate", {Fraccionamiento: Fraccionamientos});
 	});
 });
 
 router.post('/Registrate' , function(req, res) {
 	console.log(JSON.stringify(req.body));
-	validado = regex.ValUserRegistro(req.body);
-	if (validado != 0)
+	const validado = regex.ValUserRegistro(req.body);
+	if (validado !== 0)
 		return res.send(validado);
 	DBUser.Registrar(req.body).then(registro =>{
 		return res.send(registro);

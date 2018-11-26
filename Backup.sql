@@ -24,6 +24,9 @@ USE Floppy;
 DROP TABLE IF EXISTS `admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+CREATE USER floppy_admin@'localhost' IDENTIFIED BY 'n0m3l0';
+REVOKE ALL PRIVILEGES ON *.* FROM floppy_admin@'localhost';
+GRANT ALL PRIVILEGES ON Floppy.* TO floppy_admin@'localhost';
 CREATE TABLE `admin` (
   `id_adm` mediumint(9) NOT NULL AUTO_INCREMENT,
   `nom_adm` varchar(100) NOT NULL,

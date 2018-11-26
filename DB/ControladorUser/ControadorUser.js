@@ -4,7 +4,7 @@ const cipher = require('/Floppy/routes/cipher.js');
 const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
-   user: 'root',
+   user: 'floppy_admin',
    password: 'n0m3l0',
    database: 'Floppy',
    port: 3306
