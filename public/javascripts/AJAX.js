@@ -17,8 +17,7 @@ function Tabla(json, longitud) {
         var th1a = document.createElement("th");
         var th2a = document.createElement("th");
         var tra = document.createElement("tr");
-        console.log("EStp es etso " +JSON.stringify(json[i].nom_usu));
-        var nombre = document.createTextNode(JSON.stringify(json[i].nom_usu));
+        var nombre = document.createTextNode(json[i].nom_usu);
         if (json[i].est_car.data == 0){
             var estado = document.createTextNode("Afuera");
             th2a.className = "card-panel red";    
@@ -31,7 +30,7 @@ function Tabla(json, longitud) {
         }else{
             var estado = document.createTextNode("Adentro");
             th1a.appendChild(nombre);
-            th2a.appendChild(estado);
+            th2a.appendChild(estado);   
             th2a.className  = "card-panel green";
             tra.appendChild(th1a);
             tra.appendChild(th2a);
@@ -42,8 +41,7 @@ function Tabla(json, longitud) {
     Tabl.className = "transicion-1";
     document.getElementById("Consultas").appendChild(Tabl);
 }
-//var formulario = document.getElementById('admin');
-//formulario.addEventListener("onsubmit", LoginAdm(event));
+
 function LoginAdm(e) {
     //e.preventDefault();
     var correo = document.getElementById('email').value;
@@ -121,6 +119,18 @@ function ConsultarFrac(valor) {
     } 
 }
 
+function EliminarFrac(esto, otro) {
+    document.getElementById(esto).remove();
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "./EliminarFrac", true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.send(JSON.stringify({fra:otro, vig:esto}));
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            M.toast({html: xhr.responseText})
+        }   
+    }    
+}
 
 /*
 function ConsultarFrac(e) {

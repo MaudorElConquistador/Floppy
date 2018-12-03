@@ -4,8 +4,8 @@ var regexNumber =/^[0-9]+$/;
 var regexPlaca = /^([A-Z]{3})+([0-9]{3,4})$/;
 var regex = {
 	ValAdm: adm =>{
-		if (adm.cor.length <= 3 || adm.con.length <=3) 
-			return "El correo electronico y la contraseña deben ser mayor a tres caracteres";
+		if (!regexCor.test(adm.cor)) 
+			return "Ingresa un correo electronico valido ejemplo@ejemplo.ne"
 		if (adm.cor.length == 0 || adm.con.length == 0) 
 			return "Ingresa todos los datos";
 		return 0;
@@ -30,10 +30,10 @@ var regex = {
 			return "Tienes que llenas por lo menos un campo";
 	},
 	ValVig: vig => {
-		if (vig.corvig.length <= 3 || vig.convig.length <=3) 
-			return "El correo electronico y la contraseña deben ser mayor a tres caracteres";
 		if (vig.corvig.length == 0 || vig.convig.length == 0) 
-			return "Ingresa todos los datos";
+			return "Llena todos los campos";
+		if (!regexCor.test(vig.corvig)) 
+			return "Ingresa un correo electronico valido ejemplo@ejemplo.ne"
 		return 0;
 	},
 	ValUserRegistro: user =>{
@@ -55,7 +55,7 @@ var regex = {
 	},
 	ValUserLogin: user =>{
 		if (user.nom.length ==0 || user.con.length ==0) 
-			return "Llena todos los campos por fa";
+			return "Llena todos los campos";
 		return 0;
 	},
 	ValModHabNom: user =>{
@@ -70,9 +70,9 @@ var regex = {
 	},
 	ValModHabMat: user =>{
 		if (!regexPlaca.test(user.mat))
-			return "Las placas de la CDMX tienen que cumplir con el siguiente formato AAA-999 o AAA-9999";
+			return "Las placas del Estado de México tienen que cumplir con el siguiente formato AAA999 o AAA9999";
 		if (user.mat.length > 7 || user.mat.length < 6 ) 
-			return "Las placas de la CDMX tienen que cumplir con el siguiente formato AAA-999 o AAA-9999";
+			return "Las placas del Estado de México tienen que cumplir con el siguiente formato AAA999 o AAA9999";
 		return 0;
 	}
 }

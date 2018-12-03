@@ -73,11 +73,19 @@ router.post('/ModiVigil', function(req, res){
 		return res.send("Primero tienes que iniciar sesion");
 });
 
+router.post('/EliminarFrac', function(req, res){
+	if(!req.session.nombre)
+		return res.send("Primero tienes que iniciar sesion");
+	DB.EliminarFrac(req.body).then(respuesta =>{
+		return res.send(respuesta);
+	});
+});
+
 /*Rutas get para cambiar de página*/
 //Arreglar las sesiones, funciona en el primer ejs, pero cuando cambias a otro ya no aparece el nombre
 router.get('/AdminVig',function(req, res) {
 	if(!req.session.nombre)
-		return res.send("Primero tienes que iniciar sesion");
+		return res.sendFile("ErrorSesion.html", {root: path.join(__dirname, "../public/html")});
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
 	DB.ConsultarFrac().then(fraccionamiento =>{
 		console.log("Estes es el resultado " + JSON.stringify(fraccionamiento));
@@ -87,7 +95,7 @@ router.get('/AdminVig',function(req, res) {
 
 router.get('/Registros',function(req, res) {
 	if(!req.session.nombre)
-		return res.send("Primero tienes que iniciar sesion");
+		return res.sendFile("ErrorSesion.html", {root: path.join(__dirname, "../public/html")});
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
 	DB.ConsultarVigyFrac(req.body).then(succes=>{
 		return res.render("VistasAdmin/UsRegis", {user: req.session.nombre, Consulta: succes[0]});
@@ -96,7 +104,7 @@ router.get('/Registros',function(req, res) {
 
 router.get('/Fraccionamientos',function(req, res) {
 	if(!req.session.nombre)
-		return res.send("Primero tienes que iniciar sesion");
+		return res.sendFile("ErrorSesion.html", {root: path.join(__dirname, "../public/html")});
 	console.log("Esta es tu sesion chiptoide " + req.session.nombre);
 	DB.ConsultarFrac(req.body).then(succes=>{
 		/*if (succes.length == 0)

@@ -11,80 +11,134 @@
 	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body>
-	<header class="row"><div>
-		<nav class="blue darken-2">
-		<div class="nav-wrapper">
-		  <a href="#" class="brand-logo">Floppy</a>
-		  <ul id="nav-mobile" class="right hide-on-med-and-down">
-		    <li><a href="#">¿Quienes Somos?</a></li>
-		    <li><a href="#">¿Que es Floppy?</a></li>
-		    <li><a href="#">Filosofia</a></li>
-		  </ul>
-		</div>
-		</nav>
+<body class="white">
+	<header>
+		<div class="navbar-fixed"> 
+      <nav class="blue darken-2" >
+        <div class="nav-wrapper">
+          <a style="margin-left: 0.5%" class="brand-logo">Floppy</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="#Floppy">¿Que es Floppy?</a></li>
+            <li><a href="#Nosotros">¿Quienes Somos?</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div >
+      <div class="slider">
+      <ul class="slides">
+        <li>
+          <img src="images/Imagen1_slider.jpg">
+          <div class="caption center-align">
+            <h3>Conoce Floppy</h3>
+            <h5 class="light grey-text text-lighten-3">Floppy es un servicio para la automatización de puertas en estacionamiento.</h5>
+          </div>
+        </li>
+        <li>
+          <img src="images/Imagen2_slider.jpg"> <!-- random image -->
+          <div class="caption left-align">
+            <h3>Entra a tu fraccionamiento</h3>
+            <h5 class="light grey-text text-lighten-3">Ingresa a tu fraccionamiento por medio de tus placas.</h5>
+          </div>
+        </li>
+        <li>
+          <img src="images/Imagen1_slider.jpg"> <!-- random image -->
+          <div class="caption right-align">
+            <h3>¿Y mi auto?</h3>
+            <h5 class="light grey-text text-lighten-3">Revisa si tu auto esta dentro del fraccionamiento.</h5>
+          </div>
+        </li>
+        <li>
+          <img src="images/Imagen2_slider.jpg"> <!-- random image -->
+          <div class="caption center-align">
+            <h3>Mas comodo</h3>
+            <h5 class="light grey-text text-lighten-3">No tendras contratiempos al entrar a tu fraccionamiento.</h5>
+          </div>
+        </li>
+      </ul>
+      </div><!--Fin del carousel-->
+    </div>
 	</header>	
-	<main class="row"> 
-	<div class=" col s12">
-		<div class="col s6">
-		<div class="slider">
-		    <ul class="slides">
-		      <li>
-	        <img> <!-- random image -->
-	        <div class="caption center-align">
-	          <h3>Conoce Floppy</h3>
-	          <h5 class="light grey-text text-lighten-3">Floppy es un servicio para la automatización de puertas en estacionamiento.</h5>
-	        </div>
-	      </li>
-	      <li>
-	        <img> <!-- random image -->
-	        <div class="caption left-align">
-	          <h3>Entra a tu fraccionamiento</h3>
-	          <h5 class="light grey-text text-lighten-3">Ingresa a tu fraccionamiento por medio de tus placas.</h5>
-	        </div>
-	      </li>
-	      <li>
-	        <img> <!-- random image -->
-	        <div class="caption right-align">
-	          <h3>¿Y mi auto?</h3>
-	          <h5 class="light grey-text text-lighten-3">Revisa si tu auto esta dentro del fraccionamiento.</h5>
-	        </div>
-	      </li>
-	      <li>
-	        <img> <!-- random image -->
-	        <div class="caption center-align">
-	          <h3>Mas comodo</h3>
-	          <h5 class="light grey-text text-lighten-3">No tendras contratiempos al entrar a tu fraccionamiento.</h5>
-	        </div>
-	      </li>
-	    	</ul>
-	  	</div>
-	</div>
-	<div class="col s6">
-		<div class="row">
-			<blockquote class="col s12 hr fade-left-in-out">¿Quieres registrar tu auto en tu fraccionamiento? <a href="RegistroUsuario"> Sigue estos pasos para registrarte </a> </blockquote><br>
-			<blockquote class="col s12">¿Ya eres usuario de nuestro servicio?.</blockquote>
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s8">
-						<i class="material-icons prefix">account_circle</i>
-						<input type="text" id="correo">
-						<label class="activate" for="correo">Ingresa tu correo electronico</label>
-					</div>
-					<div class="input-field col s8">
-						<i class="material-icons prefix">lock</i>
-						<input type="password" id="contraseña">
-						<label class="activate" for="contraseña">Ingresa tu contraseña</label>
-					</div>
-					<div class="input-field col s8">
-						<input type="button"  value="Ingresar"  class="btn waves-effect waves-light" name="Entrar" onclick="Login(event)">
-					</div>
-				</div>
-				<div class="col s12 scale-transition" id="Mensaje"></div>
-			</form>
-		</div>
-	</div>
-	</div>
+  <main>
+      <div class="row">
+        <div class="col s4 offset-s1">
+          <div class="card">
+            <div class="blue darken-2"> 
+              <br><h4 align="center" class="white-text" style="font-weight:bold;">Habitante</h4><br> 
+            </div>
+            <div class="row card-content"> 
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s8">
+                    <i class="material-icons prefix">account_box</i><input type="text" id="correo" />
+                    <label class="activate" for="correo" style="color: black">Ingresa tu correo electronico</label>
+                  </div>
+                  <div class="input-field col s8">
+                    <i class="material-icons prefix">lock</i><input type="password" id="contraseña">
+                    <label class="activate" for="contraseña" style="color: black">Ingresa tu contraseña</label>
+                  </div>
+                    <div class="input-field col s8"><a class="btn waves-effect waves-light waves-red btb-flat" onclick="Login(event)" name="Entrar" style="background-color: #2196f3;">Ingresar</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="card-action">
+                <a href="RegistroUsuario" class="btn waves-light waves-effect waves-blue btn-flat">Registrate aqui</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s4 offset-s1">
+          <div class="card">
+            <div class="blue darken-2"> 
+                <br><h4 align="center " class="white-text" style="font-weight:bold;">Vigilante</h4><br> 
+            </div>
+            <div class="row card-content"> 
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s8">
+                    <i class="material-icons prefix">account_box</i><input type="text" id="Vigcorreo" />
+                    <label class="activate" for="Vigcorreo" style="color: black">Ingresa tu correo electronico</label>
+                  </div>
+                  <div class="input-field col s8">
+                    <i class="material-icons prefix">lock</i><input type="password" id="contraseñaVig">
+                    <label class="activate" for="contraseñaVig" style="color: black">Ingresa tu contraseña</label>
+                  </div>
+                    <div class="input-field col s8"><a class="btn waves-effect waves-light waves-red btb-flat" onclick="LoginVig(event)" name="Entrar" style="background-color: #2196f3;">Ingresar</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="card-action">
+              <a href="RegistroUsuario" class="btn waves-light waves-effect waves-blue btn-flat"> Sigue estos pasos para registrarte</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="parallax-container">
+        <div class="parallax"><img src="images/Parallax_Image2.jpg"></div>
+      </div>
+      <div class="section white">
+        <div class="row container">
+          <h2 class="header blue-text section scrollspy" id="Floppy">¿Qué es Floppy?</h2>
+          <p class="flow-text grey-text text-darken-3 lighten-3">
+            Floppy es un sistema desarrollado para la agilización de apertura y cierre de portones de manera automática, delimitado a fraccionamientos con baja afluencia y para la región única del Estado de México, México. Es exclusivo para fraccionamientos con acceso único a automóviles. Así mismo cuenta con una página web donde el habitante podrá hacer consulta sobre el estado de su automóvil, refriéndonos a si se encuentra dentro o fuera del estacionamiento.
+          </p>
+        </div>
+      </div>
+    </div>
+      <div class="parallax-container">
+        <div class="parallax"><img src="images/Parallax_Image.jpg"></div>
+      </div>
+    <div class="section white">
+        <div class="row container">
+          <h2 class="header blue-text section scrollspy" id="Nosotros">¿Quiénes somos?</h2>
+          <p class="flow-text grey-text text-darken-3 lighten-3">
+            Dinamita Software es una empresa encargada del desarrollo y comercialización de software que se encarga de ofrecer diferentes soluciones para empresas, profesionales y usuarios particulares a través de la innovación de diferentes tipos de software de acuerdo con los requerimientos del comprador con la que se les otorgara mejorar sus operaciones y así que sea desarrolle una mejor productividad.
+          </p>
+        </div>
+      </div>
+    </div>
 	</main>
 	<footer></footer>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -92,5 +146,6 @@
 	<script src="./javascripts/AJAXUser.js"></script>
 	<script src="./javascripts/otro.js"></script>
 	<script src="./javascripts/init.js"></script>
+  <script src="/javascripts/AJAXVig.js"></script>
 </body>
 </html>

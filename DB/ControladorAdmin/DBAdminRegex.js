@@ -3,8 +3,8 @@ const cipher = require('../../routes/cipher.js');
 const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
-   user: 'floppy_admin',
-   password: 'n0m3l0',
+   user: 'root',
+   password: 'holamundo',
    database: 'Floppy',
    port: 3306
 });
@@ -20,7 +20,7 @@ con.connect(function(error){
 var funciones = {
    ExisteFrac: dir =>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT * FROM fraccionamiento WHERE dir_fra = ?', [dir],function(error, result){
+         con.query('SELECT *FROM FRACCIONAMIENTO WHERE dir_fra = ?', [dir],function(error, result){
             if (error)
               throw error;
                if (result.length >= 1)
@@ -32,7 +32,7 @@ var funciones = {
    },
    ExisteVig: correo =>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT * FROM VIGILANTE WHERE cor_vig = ? ', [correo], function(error, result){
+         con.query('SELECT *FROM VIGILANTE WHERE cor_vig = ? ', [correo], function(error, result){
             if (error)
               throw error;
             if (result.length >= 1)
@@ -43,7 +43,7 @@ var funciones = {
    },
    ExisteTelVig: telefono =>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT * FROM VIGILANTE WHERE tel_vig = ? ', [telefono], function(error, result){
+         con.query('SELECT *FROM VIGILANTE WHERE tel_vig = ? ', [telefono], function(error, result){
             if (error)
               throw error;
             if (result.length >= 1)
@@ -54,7 +54,7 @@ var funciones = {
    },
    ExisteFrac2: (dir, clave) =>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT * FROM fraccionamiento WHERE dir_fra = ?', [dir], function(error, result){
+         con.query('SELECT *FROM FRACCIONAMIENTO WHERE dir_fra = ?', [dir], function(error, result){
             if (error)
                throw error;
             if (result.length == 0)
@@ -67,7 +67,7 @@ var funciones = {
    },
    ExistePlaca: placas =>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT * FROM habitante WHERE let_hab = ?', [placas], function(error, result){
+         con.query('SELECT *FROM HABITANTE WHERE let_hab = ?', [placas], function(error, result){
             if (error)
                throw error;
             if (result.length != 0)
@@ -78,7 +78,7 @@ var funciones = {
    },
    ExisteUser: user =>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT * FROM habitante WHERE cor_usu = ?', [user], function(error, result){
+         con.query('SELECT *FROM HABITANTE WHERE cor_usu = ?', [user], function(error, result){
             if (error)
                throw error;
             if (result.length != 0)
@@ -102,7 +102,7 @@ var funciones = {
    },
    TodosHabitantes: id=>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT habitante.nom_usu, CAR.est_car FROM habitante INNER JOIN CAR ON CAR.let_car = habitante.let_hab WHERE habitante.id_fra = ?', [id], function(error, result){
+         con.query('SELECT HABITANTE.nom_usu, CAR.est_car FROM HABITANTE INNER JOIN CAR ON CAR.let_car = HABITANTE.let_hab WHERE HABITANTE.id_fra = ?', [id], function(error, result){
             console.log("la longitud " + result.length)
             if (error)
                throw error;
@@ -114,7 +114,7 @@ var funciones = {
    },
    Habitante: id=>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT * FROM habitante INNER JOIN CAR ON CAR.id_car = habitante.id_car WHERE habitante.id_fra = ?', [id], function(error, result){
+         con.query('SELECT *FROM HABITANTE INNER JOIN CAR ON CAR.id_car = HABITANTE.id_car WHERE HABITANTE.id_fra = ?', [id], function(error, result){
             if (error)
                throw error;
             if (result.length == 0)
@@ -125,7 +125,7 @@ var funciones = {
    },
    ExisteVig2: vig =>{
       return new Promise ((resolve, reject)=>{
-         con.query('SELECT * FROM VIGILANTE WHERE cor_vig = ? OR tel_vig = ?', [], function(error, result){
+         con.query('SELECT *FROM VIGILANTE WHERE cor_vig = ? OR tel_vig = ?', [], function(error, result){
             if(error)
                throw error;
             if (result.length != 0)
@@ -133,7 +133,29 @@ var funciones = {
             return resolve(0);
          });
       });
-   }
-} 
+   }, 
+   ExisteFrac3: frac =>{
+      return new Promise ((resolve, reject)=>{
+         con.query('SELECT *FROM FRACCIONAMIENTO WHERE dir_fra = ?', [frac], function(error, result){
+            if(error)
+               throw error;
+            if (result.length == 0)
+               return resolve({estado:1, mensaje:"No hay fraccionamiento registrado con esa dirección"});
+            return resolve(0);
+         });
+      });
+   }, 
+   ExisteVig3: vig =>{
+      return new Promise ((resolve, reject)=>{
+         con.query('SELECT *FROM VIGILANTE WHERE cor_vig = ?', [vig], function(error, result){
+            if(error)
+               throw error;
+            if (result.length == 0)
+               return resolve({estado:1, mensaje:"No hay vigilante registrado con esa dirección electronica"});
+            return resolve(0);
+         });
+      });
+   } 
+}
 module.exports = funciones;
 ///de rendimiento, despliegue y ora madrola

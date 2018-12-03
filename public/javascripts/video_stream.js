@@ -1,6 +1,6 @@
 (() => {
     document.addEventListener("DOMContentLoaded", () => {
-        const socket = io("http://127.0.0.1:8888");
+        const socket = io("http://localhost:8888");
         const drawImageInCanvas = (data) => {
             const img = new Image();
             img.onload = () => {ctx.drawImage(img, 0, 0)};

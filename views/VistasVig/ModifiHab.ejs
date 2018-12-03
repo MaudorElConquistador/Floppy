@@ -15,22 +15,22 @@
 			<a href="#" class="brand-logo">Floppy</a>
 			<a href="#" class="sidenav-trigger" data-target="mobile-nav">
 			<i class="material-icons">menu</i></a>
-		  <ul id="nav-mobile" class="right hide-on-med-and-down">
-		    <li><a href="./Usuarios">Modificar Usuario</a></li>
-		    <li><a href="./Fraccionamiento">Estados</a></li>
-		    <li><a href="./EnviarClave">Enviar Clave</a></li>
-		  	<li><a class="#"><i class="material-icons">account_circle</i></a></li>
-		  	<li><a href="./Salir">Salir</a></li>
-		  </ul>
+		  	<ul id="dropdown1" class="dropdown-content">
+				<li><a href="./Salir">Salir</a></li>
+			</ul>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li class="active"><a href="./Usuarios">Modificar Usuario</a></li>
+				<li><a href="./Fraccionamiento">Estados</a></li>
+				<li><a href="./EnviarClave">Enviar Clave</a></li>
+				<li class="dropdown-trigger" href="#!" data-target="dropdown1"><a class="#"><i class="material-icons">account_circle</i></a></li>
+			</ul>
 		</div>
 	</nav>
 	<ul class="sidenav" id="mobile-nav">
 		<li><div class="user-view">
-	      <div class="background">
-	        <img src="/images/estacionamiento.jpg">
+	      <div class="background blue darken-4">
 	      </div>
-	      <a class="#"><i class="material-icons">account_circle</i></a>
-	      <a><span class="white-text email"><%= user %></span></a>
+	      <br><h5 class="white-text" align="center"><%= user %></h5><br>
     	</div></li>
 	    <li><a href="./Usuarios">Modificar Usuario</a></li>
 	    <li><a href="./Fraccionamiento">Estados</a></li>
@@ -48,17 +48,18 @@
 					<tr>
 						<td>Habitante</td>
 						<td>Modificar</td>
+						<td>Eliminar</td>
 					</tr>
 				</thead>
 				<tbody>
 					<%Fraccionamiento.forEach(function(fraccionamiento){ %>
-					<tr>
+					<tr id="<%= fraccionamiento.cor_usu%>"">
 						<td ><%= fraccionamiento.nom_usu%></td>
 						<div id="modal <%= fraccionamiento.nom_usu%>" class="modal modal-fixed-footer">
 						<div class="modal-content row ">
 							<p class="flow-text" align="center">Modificar información del habitante</p class="flow-text">
-							  <p>Habitante a modificar:</p><input type="text" readonly="readonly" value="<%= fraccionamiento.cor_usu%>">
-							  <ul class="collapsible">
+							  <p>Habitante a modificar:</p><input type="text" readonly="readonly" value="<%= fraccionamiento.cor_usu%>" id = "correo">
+							  <ul class="collapsible"> 
 								<li>
 									<div class="collapsible-header"><i class="material-icons">create</i>Nombre</div>
 									<div class="collapsible-body" >
@@ -103,6 +104,7 @@
 							</div>
 						</div>
 						<td class ="waves-effect waves-green modal-trigger hoverable" href="#modal <%= fraccionamiento.nom_usu%>">Modificar Usuario</td>
+						<td><button class="waves-effect waves-light red btn" onclick="EliminarHab('<%= fraccionamiento.cor_usu%>')">Eliminar</button></td>
 					</tr>
 					<% });%>
 				</tbody>	

@@ -1,0 +1,46 @@
+<!Doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
+</head>
+<body>
+	<header class="row"><div>
+		<nav class="blue darken-2">
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo">Floppy</a>
+				<a href="#" class="sidenav-trigger" data-target="mobile-nav">
+				<i class="material-icons">menu</i></a>
+			<ul id="dropdown1" class="dropdown-content">
+				<li><a href="./Salir">Salir</a></li>
+			</ul>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a href="./Usuarios">Modificar Usuario</a></li>
+				<li><a href="./Fraccionamiento">Estados</a></li>
+				<li><a href="./EnviarClave">Enviar Clave</a></li>
+				<li class="active"><a href="#"></a>Video</li>
+				<li class="dropdown-trigger" href="#!" data-target="dropdown1"><a class="#"><i class="material-icons">account_circle</i></a></li>
+			</ul>
+			</div>
+		</nav>
+	<ul class="sidenav" id="mobile-nav">
+		<li><div class="user-view">
+	      <div class="background blue darken-4">
+	      </div>
+	      <h4 class="white-text" align="center"><%= user %></h4><br>
+    	</div></li>
+    	<li><a href="./Usuarios">Modificar Usuario</a></li>
+	    <li><a href="./Fraccionamiento">Estados</a></li>
+	    <li><a href="./EnviarClave">Enviar Clave</a></li>
+		<li><a href="./Salir">Salir</a></li>
+	</ul>
+	</header>
+	<canvas>
+		
+	</canvas>
+	<script type='text/javascript' src='/javascripts/video_stream.js'></script>
+	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js'></script>
+</body>
+</html>

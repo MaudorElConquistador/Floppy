@@ -4,8 +4,8 @@ const cipher = require('../../routes/cipher.js');
 const escape = require("mysql").escape;
 var con = mysql.createConnection({
    host: 'localhost',
-   user: 'floppy_admin',
-   password: 'n0m3l0',
+   user: 'root',
+   password: 'holamundo',
    database: 'Floppy',
    port: 3306
 });
@@ -20,7 +20,7 @@ con.connect(function(error){
 var funciones = {
   Iniciar: admin =>{
     return new Promise((resolve, reject) => {
-      con.query('SELECT * FROM ADMIN WHERE cor_adm=? ', [admin.cor], (err, result) => {
+      con.query('SELECT *FROM ADMIN WHERE cor_adm=? ', [admin.cor], (err, result) => {
       if (err)
         throw err;
       if (result.length == 0)
@@ -35,7 +35,7 @@ var funciones = {
         console.log("Esto esta pasando " + Fraccionamiento);
         if (Fraccionamiento != 0)
           return resolve(Fraccionamiento);
-        con.query('INSERT INTO fraccionamiento(dir_fra, cap_fra,cla_fra) VALUES(?,?,?)',[frac.dir, frac.cap, cipher.cifrar(frac.dir)], function(error, result){
+        con.query('INSERT INTO FRACCIONAMIENTO(dir_fra, cap_fra,cla_fra) VALUES(?,?,?)',[frac.dir, frac.cap, cipher.cifrar(frac.dir)], function(error, result){
           if (error)
             throw error;
           return resolve(1);
@@ -67,7 +67,7 @@ var funciones = {
   },
   ConsultarFrac: e =>{
     return new Promise ((resolve, reject)=>{
-      con.query('SELECT * FROM fraccionamiento ', function(error, result){
+      con.query('SELECT *FROM FRACCIONAMIENTO ', function(error, result){
         if (error)
           throw error;
         if (result.length == 0)
@@ -89,7 +89,7 @@ var funciones = {
   },
   ConsultarFrac2: Fraccion =>{
     return new Promise ((resolve, reject)=>{
-      con.query('SELECT * FROM fraccionamiento WHERE dir_fra = ?',[Fraccion.nom] ,function(error, result){
+      con.query('SELECT *FROM FRACCIONAMIENTO WHERE dir_fra = ?',[Fraccion.nom] ,function(error, result){
         if (error)
           throw error;
         if (result.length ==0 )
@@ -141,13 +141,21 @@ var funciones = {
   },
   EliminarFrac: Frac=>{
     return new Promise ((resolve, reject)=>{
-      con.query('DELETE * FROM fraccionamiento WHERE dir_fra = ?',[Fraccion.nom] ,function(error, result){
-        if (error)
-          throw error;
-        if (result.length == 0)
-          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"});
+      console.log("Esto :::" +JSON.stringify(Frac));
+      DBVal.ExisteFrac3(Frac.fra).then(fra =>{
+        if (fra.estado == 1)
+          return resolve(fra.mensaje);
+        DBVal.ExisteVig3(Frac.vig).then(vig =>{
+          if (vig.estado == 1) 
+            return resolve(vig.mensaje);
+          con.query('DELETE FROM VIGILANTE WHERE cor_vig = ?',[Frac.vig] ,function(error, result){
+              if (error)
+                throw error;
+              return resolve("Se ha eliminado el fraccionamiento correctamente");
+          });
         });
+      });
     });
   }
-}
+} 
 module.exports = funciones;

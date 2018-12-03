@@ -17,23 +17,22 @@
 			<a href="#" class="brand-logo">Floppy</a>
 			<a href="#" class="sidenav-trigger" data-target="mobile-nav">
 			<i class="material-icons">menu</i></a>
+		  <ul id="dropdown1" class="dropdown-content">
+				<li><a href="./Salir">Salir</a></li>
+		  </ul>
 		  <ul id="nav-mobile" class="right hide-on-med-and-down">
 		    <li><a href="./Registros">Vigilantes Registrados</a></li>
 		    <li><a href="./AdminVig">Administrar Vigilantes</a></li>
-		    <li><a href="./Fraccionamientos">Fraccionamientos</a></li>
-		  	<li><a class="#"><i class="material-icons">account_circle</i></a></li>
-		  	<li><a href="./Salir">Salir</a></li>
+		    <li class="active"><a href="./Fraccionamientos">Fraccionamientos</a></li>
+		  	<li class="dropdown-trigger" href="#!" data-target="dropdown1"><a class="#"><i class="material-icons">account_circle</i></a></li>
 		  </ul>
 		</div>
 	</nav>
-		
 	<ul class="sidenav" id="mobile-nav">
 		<li><div class="user-view">
-	      <div class="background">
-	        <img src="/images/estacionamiento.jpg">
+	      <div class="background blue darken-4">
 	      </div>
-	      <a class="#"><i class="material-icons">account_circle</i></a>
-	      <a><span class="white-text email"><%= user %></span></a>
+	      <h4 class="white-text" align="center"><%= user %></h4><br>
     	</div></li>
 	    <li><a href="./Registros">Usuarios Registrados</a></li>
 	    <li><a href="./AdminVig">Administrar vigilantes</a></li>

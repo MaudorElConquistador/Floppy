@@ -4,8 +4,8 @@ const escape = require("mysql").escape;
 var DBUtil = require('../ControladorAdmin/DBAdminRegex.js');
 var con = mysql.createConnection({
    host: 'localhost',
-   user: 'floppy_admin',
-   password: 'n0m3l0',
+   user: 'root',
+   password: 'holamundo',
    database: 'Floppy',
    port: 3306
 });
@@ -35,7 +35,7 @@ var funciones = {
   },
   ConsultarContraseña: vig =>{
     return new Promise ((resolve, reject)=>{
-      con.query('SELECT fraccionamiento.cla_fra FROM fraccionamiento INNER JOIN VIGILANTE ON fraccionamiento.dir_fra = VIGILANTE.dir_vig WHERE VIGILANTE.cor_vig = ?', [vig] ,function(error, result){
+      con.query('SELECT FRACCIONAMIENTO.cla_fra FROM FRACCIONAMIENTO INNER JOIN VIGILANTE ON FRACCIONAMIENTO.dir_fra = VIGILANTE.dir_vig WHERE VIGILANTE.cor_vig = ?', [vig] ,function(error, result){
         if (error)
           throw error;
         return resolve(result);
@@ -44,7 +44,7 @@ var funciones = {
   },
   ConsultarFrac: nombre =>{
     return new Promise ((resolve, reject)=>{
-      con.query('SELECT fraccionamiento.id_fra from fraccionamiento INNER JOIN VIGILANTE ON fraccionamiento.id_vig = VIGILANTE.id_vig WHERE VIGILANTE.cor_vig = ?', [nombre] ,function(error, result){
+      con.query('SELECT FRACCIONAMIENTO.id_fra FROM FRACCIONAMIENTO INNER JOIN VIGILANTE ON FRACCIONAMIENTO.id_vig = VIGILANTE.id_vig WHERE VIGILANTE.cor_vig = ?', [nombre] ,function(error, result){
         if (error)
           throw error;
         if (result.length == 0)
@@ -59,7 +59,7 @@ var funciones = {
   },
   ConsultaPlaca: placa =>{
     return new Promise ((resolve, reject)=>{
-      con.query('SELECT *FROM habitante WHERE let_hab = ?', [placa] ,function(error, result){
+      con.query('SELECT *FROM HABITANTE WHERE let_hab = ?', [placa] ,function(error, result){
         if (error)
           throw error;
         console.log("la longitud del resultado " + result.length)
@@ -69,27 +69,78 @@ var funciones = {
       });
     });
   },
-  ModificarNombreHab: Habitante =>{
+  Adentro: placa =>{
     return new Promise ((resolve, reject)=>{
-       con.query('UPDATE Habitante SET nom_usu = ? WHERE cor_usu = ?',[Habitante.nom,Habitante.que] ,function(error, result){
-        console.log("si esta entrando a la funcion");
+      con.query('UPDATE car SET est_car = false WHERE let_car = ?', [placa] ,function(error, result){
         if (error)
           throw error;
-        if (result.length == 0)
-          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"});
-        return resolve("otra madrola");
+        return resolve(0);  
+      });
+    });
+  },
+  Afuera: placa =>{
+    return new Promise ((resolve, reject)=>{
+      con.query('UPDATE car SET est_car = true WHERE let_car = ?', [placa] ,function(error, result){
+        if (error)
+          throw error;
+        return resolve(0);  
+      });
+    });
+  },
+  ModificarNombreHab: Habitante =>{
+    return new Promise ((resolve, reject)=>{
+      DBUtil.ExisteUser(Habitante.cor).then(mensaje =>{
+        if (mensaje.estado == 0)
+          return resolve("No se ha encontrado a ese usuario")   
+        con.query('UPDATE HABITANTE SET nom_usu = ? WHERE cor_usu = ?',[Habitante.nom, Habitante.cor] ,function(error, result){
+          if (error)
+            throw error;
+          return resolve("Los datos han sido modificados");
         });
+      });
+    });
+  },
+  ModificarMarcaHab: Habitante =>{
+    return new Promise ((resolve, reject)=>{
+       DBUtil.ExisteUser(Habitante.cor).then(mensaje =>{
+        if (mensaje.estado == 0)
+          return resolve("No se ha encontrado a ese usuario")
+        con.query('UPDATE HABITANTE SET mar_car = ? WHERE cor_usu = ?',[Habitante.mar, Habitante.cor] ,function(error, result){
+          if (error)
+            throw error;
+          return resolve("Los datos han sido modificados");
+        });
+      });
     });
   },
   ModificarMatriculaHab: Habitante =>{
     return new Promise ((resolve, reject)=>{
-       con.query('UPDATE Habitante SET pas_usu = ? WHERE cor_usu = ?',[cipher.cifrar(Habitante.con),Habitante.que] ,function(error, result){
-        if (error)
-          throw error;
-        if (result.length == 0)
-          return resolve({estado:1 ,mensaje: "No ningun fraccionamiento con ese nombre"});
-        return resolve("otra madrola");
+      DBUtil.ExisteUser(Habitante.cor).then(mensaje =>{
+        if (mensaje.estado == 0)
+          return resolve("No se ha encontrado a ese usuario")
+        DBUtil.ExistePlaca(Habitante.mat).then(placa =>{
+          if (placa.estado == 1)
+            return resolve(placa.mensaje)
+          con.query('UPDATE CAR INNER JOIN HABITANTE ON HABITANTE.let_hab = CAR.let_car SET CAR.let_car = ?, HABITANTE.let_hab = ? WHERE cor_usu = ?',[Habitante.mat, Habitante.mat, Habitante.cor] ,function(error, result){
+            if (error)
+              throw error;
+            return resolve("Los caracteres de la placa han sido modificados con éxito");
+          });
         });
+      });
+    });
+  },
+  EliminarHab: Habitante=>{
+    return new Promise ((resolve, reject)=>{
+      DBUtil.ExisteUser(Habitante.hab).then(esto =>{
+        if (esto.estado == 0)
+          return resolve('Ese usuario no esta registrado')
+        con.query('DELETE FROM HABITANTE WHERE cor_usu = ?',[Habitante.hab] ,function(error, result){
+          if (error)
+            throw error;
+          return resolve("El usuario ha sido eliminado con exito");
+        });
+      });
     });
   }
 }

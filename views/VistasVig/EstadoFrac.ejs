@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html ondrop="false" ondrag="return false" onpaste="return false" oncontextmenu="return false">
+<html>
 <head>
-	<title>Estado fraccionamiento</title>
+	<title>Fraccionamiento</title>
 	<meta charset="utf-8">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -15,22 +15,22 @@
 				<a href="#" class="brand-logo">Floppy</a>
 				<a href="#" class="sidenav-trigger" data-target="mobile-nav">
 				<i class="material-icons">menu</i></a>
-			  <ul id="nav-mobile" class="right hide-on-med-and-down">
-			    <li><a href="./Usuarios">Modificar Usuario</a></li>
-			    <li><a href="./Fraccionamiento">Estados</a></li>
-			    <li><a href="./EnviarClave">Enviar Clave</a></li>
-			  	<li><a class="#"><i class="material-icons">account_circle</i></a></li>
-			  	<li><a href="./Salir">Salir</a></li>
-			  </ul>
+			<ul id="dropdown1" class="dropdown-content">
+				<li><a href="./Salir">Salir</a></li>
+			</ul>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a href="./Usuarios">Modificar Usuario</a></li>
+				<li class="active"><a href="./Fraccionamiento">Estados</a></li>
+				<li><a href="./EnviarClave">Enviar Clave</a></li>
+				<li class="dropdown-trigger" href="#!" data-target="dropdown1"><a class="#"><i class="material-icons">account_circle</i></a></li>
+			</ul>
 			</div>
 		</nav>
 	<ul class="sidenav" id="mobile-nav">
 		<li><div class="user-view">
-	      <div class="background">
-	        <img src="/images/estacionamiento.jpg">
+	      <div class="background blue darken-4">
 	      </div>
-	      <a class="#"><i class="material-icons">account_circle</i></a>
-	      <a><span class="white-text email"><%= user %></span></a>
+	      <br><h5 class="white-text" align="center"><%= user %></h5><br>
     	</div></li>
     	<li><a href="./Usuarios">Modificar Usuario</a></li>
 	    <li><a href="./Fraccionamiento">Estados</a></li>
@@ -55,15 +55,14 @@
 						<td class="waves-effect waves-light modal-trigger hoverable" href="#modal <%= fraccionamiento.nom_usu%>"><%= fraccionamiento.nom_usu%></td>
 						<div id="modal <%= fraccionamiento.nom_usu%>" class="modal modal-fixed-footer">
 							<div class="modal-content col s12 ">
-							    <img class="responsive-img col s12" src="/images/LoginVig.jpeg">
-								<strong><p class="flow-text" align="center">Información del habitante</p class="flow-text"></strong>
+							    <strong><p class="flow-text" align="center">Información del habitante</p class="flow-text"></strong>
 								<p>Nombre del Habitante: <%= fraccionamiento.nom_usu %></p>
 								<p>Correo del habitante: <%= fraccionamiento.cor_usu %></p>
 								<p>Marca del Auto: <%= fraccionamiento.mar_car %></p>
 								<p>Caracteres de la matricula: <%= fraccionamiento.let_hab %></p>
 							</div>
 								<div class="modal-footer ">
-								<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+								<a href="#!" class="modal-close waves-effect waves-green btn-flat">De acuerdo</a>
 							</div>
 						</div>
 						<% if(fraccionamiento.est_car[0] == 0){ %>
